@@ -1,0 +1,15 @@
+<template name="pacientePage">
+  <div class="paciente-page page">
+    {{> pacienteItem}}
+    <ul class="comments">
+      {{#each consultas}}
+        {{> consultaItem}}
+      {{/each}}
+    </ul>
+    {{#if currentUser}}
+      {{> consultaSubmit}}
+    {{else}}
+      <p>Por favor inicie sesión para realizar esta consulta.</p>
+    {{/if}}
+  </div>
+</template>

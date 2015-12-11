@@ -1,0 +1,13 @@
+<template name="pacienteItem">
+  <div class="paciente">
+    <div class="paciente-content">
+      <h3>{{nombre}} <span>{{domain}}</span></h3>
+      <p>
+        registrado por {{author}},
+        <a href="{{pathFor 'pacientePage'}}">{{consultasCount}} consultas</a>
+        {{#if ownPaciente}}<a href="{{pathFor 'pacienteEdit'}}">Edit</a>{{/if}}
+      </p>
+    </div>
+    <a href="{{pathFor 'pacientePage'}}" class="discuss btn btn-default">Ficha</a>
+  </div>
+</template>
