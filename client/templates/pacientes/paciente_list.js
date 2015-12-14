@@ -1,6 +1,14 @@
+Template.pacienteList.onCreated(function() {
+  Session.set('isListPacienteRun', true);
+});
+
+Template.pacienteList.onDestroyed(function() {
+  Session.set('isListPacienteRun', false);
+});
+
 var options = {
   keepHistory: 1000 * 60 * 5,
-  localSearch: true
+  localSearch: false
 };
 var fields = ['nombre', 'dni'];
 

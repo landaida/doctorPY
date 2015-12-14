@@ -45,7 +45,7 @@ Template.pacienteEdit.events({
     if (confirm("Eliminar este paciente?")) {
       var currentPacienteId = this._id;
       Pacientes.remove(currentPacienteId);
-      Router.go('pacientesList');
+      Router.go('pacienteList');
     }
   }
 });

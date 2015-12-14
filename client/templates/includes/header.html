@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{pathFor 'pacientesList'}}">DosctorPY</a>
+      <a class="navbar-brand" href="{{pathFor 'pacienteList'}}">DosctorPY</a>
     </div>
     <div class="collapse navbar-collapse" id="navigation">
       <ul class="nav navbar-nav">
@@ -17,11 +17,14 @@
         {{> loginButtons}}
       </ul>
     </div>
-    <div class="container" style="padding: 10px;">
-      {{> searchBox }}
-    </div>
+    {{> searchBox }}
   </nav>
 </template>
 <template name="searchBox">
-  <input type="text" id="search-box" placeholder="encuentre pacientes aquí" />
+  {{#if isListPacienteRun}}
+      <div class="input-group">
+        <input type="text" class="form-control" id="search-box" placeholder="buscar pacientes&hellip;" style="width: 30%; float: right;">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+      </div>
+  {{/if}}
 </template>
