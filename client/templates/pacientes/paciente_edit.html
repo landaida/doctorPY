@@ -3,14 +3,14 @@
     <div class="form-group {{errorClass 'dni'}}">
       <label class="control-label" for="dni">DNI</label>
       <div class="controls">
-          <input name="dni" id="dni" type="text" value="{{dni}}" placeholder="Your URL" class="form-control"/>
+          <input name="dni" id="dni" type="number" onkeypress="return numbersonly(this, event)" required="true" value="{{dni}}" placeholder="Documento Nacional de Identidad" class="form-control"/>
           <span class="help-block">{{errorMessage 'dni'}}</span>
       </div>
     </div>
     <div class="form-group {{errorClass 'nombre'}}">
       <label class="control-label" for="nombre">Nombre</label>
       <div class="controls">
-          <input name="nombre" id="nombre" type="text" value="{{nombre}}" placeholder="Name your paciente" class="form-control"/>
+          <input name="nombre" id="nombre" type="text" value="{{nombre}}" placeholder="Nombre del paciente" class="form-control"/>
           <span class="help-block">{{errorMessage 'nombre'}}</span>
       </div>
     </div>
