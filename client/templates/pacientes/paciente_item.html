@@ -1,7 +1,11 @@
 <template name="pacienteItem">
   <div class="paciente">
     <div class="paciente-content">
-      <h3>{{nombre}} <span>{{domain}}</span></h3>
+      <h3>
+        <div class="name">
+          {{{nombre}}} - {{{dni}}}
+        </div>
+      </h3>
       <p>
         registrado por {{author}},
         <a href="{{pathFor 'pacientePage'}}">{{consultasCount}} consultas</a>

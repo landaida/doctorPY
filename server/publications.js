@@ -1,3 +1,20 @@
+SearchSource.defineSource('pacientes', function(searchText, options) {
+  var options = {sort: {isoScore: -1}, limit: 20};
+
+  if(searchText) {
+    var regExp = buildRegExp(searchText);
+    var selector = {$or: [
+      {dni: regExp},
+      {nombre: regExp}
+    ]};
+
+    return Pacientes.find(selector, options).fetch();
+  } else {
+    return Pacientes.find({}, options).fetch();
+  }
+});
+
+
 Meteor.publish('pacientes', function(options) {
   check(options, {
     sort: Object,
@@ -15,3 +32,9 @@ Meteor.publish('consultas', function(pacienteId) {
   check(pacienteId, String);
   return Consultas.find({pacienteId: pacienteId});
 });
+
+function buildRegExp(searchText) {
+  // this is a dumb implementation
+  var parts = searchText.trim().split(/[ \-\:]+/);
+  return new RegExp("(" + parts.join('|') + ")", "ig");
+}

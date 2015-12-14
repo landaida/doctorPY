@@ -1,6 +1,17 @@
 <template name="pacientesList">
   <div class="pacientes">
-    {{#each pacientes}}
+    {{> searchResult}}
+  </div>
+</template>
+
+<template name="searchResult">
+  <div id='search-result'>
+    <div id="search-meta">
+      {{#if isLoading}}
+        buscando ...
+      {{/if}}
+    </div>
+    {{#each getPacientes}}
       {{> pacienteItem}}
     {{/each}}
     {{#if nextPath}}
@@ -10,5 +21,16 @@
         {{> spinner}}
       {{/unless}}
     {{/if}}
+
+    <!-- {{#each getPacientes}}
+    <div class="package">
+      <h4 class="name">
+        <a href="{{git}}" target="_blank">{{{dni}}}</a>
+      </h4>
+      <div class="description">
+        {{{nombre}}}
+      </div>
+    </div>
+    {{/each}} -->
   </div>
 </template>
