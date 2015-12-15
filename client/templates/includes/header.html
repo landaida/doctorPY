@@ -11,7 +11,11 @@
     </div>
     <div class="collapse navbar-collapse" id="navigation">
       <ul class="nav navbar-nav">
-        {{#if currentUser}}<li><a href="{{pathFor 'pacienteSubmit'}}">Crear Paciente</a></li>{{/if}}
+        {{#if currentUser}}
+          <li>
+            <button type="button" name="btnAddPaciente" id="btnAddPaciente" class="btn btn-primary btn-sm" style=" margin-top: 10px;"><span class="glyphicon glyphicon glyphicon-plus"></span> Paciente</button>
+          </li>
+        {{/if}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {{> loginButtons}}
@@ -22,9 +26,9 @@
 </template>
 <template name="searchBox">
   {{#if isListPacienteRun}}
-      <div class="input-group">
+      <div class="input-group" style="margin-right: 10px;">
         <input type="text" class="form-control" id="search-box" placeholder="buscar pacientes&hellip;" style="width: 30%; float: right;">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <span class="input-group-addon" style="background-color:#337ab7; border-color: #2e6da4; color: white;"><i class="glyphicon glyphicon-search"></i></span>
       </div>
   {{/if}}
 </template>

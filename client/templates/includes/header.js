@@ -6,3 +6,11 @@ Template.searchBox.helpers({
     return isRun;
   }
 });
+
+
+Template.header.events({
+  'click #btnAddPaciente': function(event, template) {
+    event.preventDefault();
+    Router.go('pacienteSubmit');
+  }
+});
