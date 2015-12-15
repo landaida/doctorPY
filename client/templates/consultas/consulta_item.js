@@ -1,5 +1,5 @@
 Template.consultaItem.helpers({
   submittedText: function() {
-    return this.submitted.toString();
+    return moment(this.submitted).format('LLL');
   }
 });

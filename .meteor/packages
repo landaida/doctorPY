@@ -25,3 +25,4 @@ audit-argument-checks
 check
 ejson
 meteorhacks:search-source
+momentjs:moment
