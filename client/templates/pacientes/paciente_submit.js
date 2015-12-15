@@ -7,17 +7,23 @@ Template.pacienteSubmit.helpers({
   },
   errorClass: function (field) {
     return !!Session.get('pacienteSubmitErrors')[field] ? 'has-error' : '';
+  },
+  photo: function () {
+    return '/img/user_profile_photo.png';
   }
 });
-
+Template.pacienteSubmit.created=function(){
+  this.fotoBuffer=new ReactiveVar();
+};
 Template.pacienteSubmit.events({
-  'submit form': function(e) {
+  'submit form': function(e, template) {
     //poner siempre, previene back or
     e.preventDefault();
 
     var paciente = {
       dni: $(e.target).find('[name=dni]').val(),
-      nombre: $(e.target).find('[name=nombre]').val()
+      nombre: $(e.target).find('[name=nombre]').val(),
+      foto: template.fotoBuffer.get()
     };
 
     //valida que hay title and url del lado cliente
@@ -38,5 +44,20 @@ Template.pacienteSubmit.events({
 
      Router.go('pacientePage', {_id: result._id});
    });
+ },
+ 'change #foto': function(event, template) {
+   event.preventDefault();
+     var file = event.target.files[0]; //assuming you have only 1 file
+     var reader = new FileReader(); //create a reader according to HTML5 File API
+
+     reader.onload = function(event){
+       var result = reader.result //assign the result, if you console.log(result), you get {}
+       buffer = new Uint8Array(result) // convert to binary
+       template.fotoBuffer.set(buffer);
+       //console.log(this, buffer);
+     }
+
+     reader.readAsArrayBuffer(file); //read the file as arraybuffer
+     //reader.readAsDataURL(file)
   }
 });

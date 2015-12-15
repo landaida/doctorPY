@@ -12,12 +12,12 @@
       </a>
     </div>
     <div class="collapse navbar-collapse" id="navigation">
+      {{#if currentUser}}
       <ul class="nav navbar-nav">
-        {{#if currentUser}}
+
           <li>
             <button type="button" name="btnAddPaciente" id="btnAddPaciente" class="btn btn-primary btn-sm" style="margin-top:10px;"><span class="glyphicon glyphicon glyphicon-plus"></span> Paciente</button>
           </li>
-        {{/if}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <div class="dropdown" style="margin:10px 10px 0px 0px;">
@@ -37,11 +37,14 @@
             </ul>
           </div>
       </ul>
+      {{/if}}
       <ul class="nav navbar-nav navbar-right">
         {{> loginButtons}}
       </ul>
     </div>
-    {{> searchBox }}
+    {{#if currentUser}}
+      {{> searchBox }}
+    {{/if}}
   </nav>
 </template>
 <template name="searchBox">
