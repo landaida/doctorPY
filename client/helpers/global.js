@@ -1,10 +1,10 @@
 var helpers = {
-  dateToText: function(date) {
-    if ( date ) {
-      return moment(date).format('LLL');
-    }else {
-      return null;
+  dateToText: function(date) {debugger
+    if ( date) {
+      if(moment(date).isValid())
+        return moment(date).format('LLL');
     }
+    return date;
   },
   numbersonly: function (myfield, e){
     var key;
