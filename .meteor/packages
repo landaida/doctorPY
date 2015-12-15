@@ -27,3 +27,5 @@ ejson
 meteorhacks:search-source
 momentjs:moment
 reactive-var
+cfs:standard-packages
+cfs:gridfs
