@@ -18,7 +18,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 iron:router
 sacha:spin
-twbs:bootstrap
 ian:accounts-ui-bootstrap-3
 accounts-password
 audit-argument-checks
@@ -29,3 +28,5 @@ momentjs:moment
 reactive-var
 cfs:standard-packages
 cfs:gridfs
+mystor:device-detection
+mizzao:bootstrap-3

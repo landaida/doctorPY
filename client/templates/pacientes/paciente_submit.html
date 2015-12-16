@@ -1,10 +1,10 @@
 <template name="pacienteSubmit">
   <form class="main form page">
       <div class="row">
-        <div class="col-xs-6 col-md-6">
+        <div class="col-xs-6 col-lg-6">
           <div class="form-group {{errorClass 'dni'}}">
-            <label class="control-label" for="dni">DNI</label>
-            <div class="controls">
+            <label class="col-md-4 control-label" for="dni">DNI</label>
+            <div class="col-md-8 controls">
                 <input name="dni" id="dni" type="number" required="true" value="" placeholder="Documento Nacional de Identidad" class="form-control"/>
                 <span class="help-block">{{errorMessage 'dni'}}</span>
             </div>
@@ -17,7 +17,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-6 col-md-6">
+         <div class="col-xs-6 col-md-6">
           <div class="pull-right">
             <a href="#" class="thumbnail" style="background: transparent; border: none;">
               <img src="{{photo}}" id="foto" name="foto" alt="das">

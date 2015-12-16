@@ -30,6 +30,12 @@ var helpers = {
 
     else
         return false;
+  },
+  classContainer: function() {
+    var retorno = 'container'
+    if(!Meteor.Device.isDesktop())
+      retorno = 'container-fluid';
+    return retorno;
   }
 };
 

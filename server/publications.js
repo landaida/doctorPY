@@ -36,7 +36,7 @@ Meteor.publish('consultas', function(pacienteId) {
 Meteor.publish('imagenes', function(pacienteId) {debugger
   check(pacienteId, String);
   var retorno = Imagenes.find({});
-  console.log('server publication img', retorno);
+  //console.log('server publication img', retorno);
   return retorno;
 });
 
