@@ -7,6 +7,10 @@ Template.pacientePage.helpers({
     return foto[0];
   },
   urlFoto: function(foto) {
-    return foto.url();
+    if(foto)
+      return foto.url();
+    else {
+      return '/img/user_profile_photo.png';
+    }
   },
 });
