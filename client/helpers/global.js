@@ -1,5 +1,5 @@
 var helpers = {
-  dateToText: function(date) {debugger
+  dateToText: function(date) {
     if ( date) {
       if(moment(date).isValid())
         return moment(date).format('LLL');

@@ -4,35 +4,41 @@
     <div class="container">
       <h3 style="float: right;">{{{nombre}}}</h3>
       <ul class="nav nav-pills" style="margin-top: 50px;">
-        <li class="active"><a data-toggle="pill" href="#home"><span class="glyphicon glyphicon-list-alt"></span> Consultar</a></li>
-        <li><a data-toggle="pill" href="#menu1"><span class="glyphicon glyphicon-user"></span> Datos del Paciente</a></li>
-        <li><a data-toggle="pill" href="#menu2"><span class="glyphicon glyphicon-time"></span> Historial</a></li>
-        <li><a data-toggle="pill" href="#menu2"><span class="glyphicon glyphicon-floppy-save"></span> Archivos</a></li>
+        <li class="active"><a data-toggle="pill" href="#consultar"><span class="glyphicon glyphicon-list-alt"></span> Consultar</a></li>
+        <li><a data-toggle="pill" href="#datos"><span class="glyphicon glyphicon-user"></span> Datos del Paciente</a></li>
+        <li><a data-toggle="pill" href="#historial"><span class="glyphicon glyphicon-time"></span> Historial</a></li>
+        <li><a data-toggle="pill" href="#archivos"><span class="glyphicon glyphicon-floppy-save"></span> Archivos</a></li>
       </ul>
 
       <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
+        <div id="consultar" class="tab-pane fade in active">
           {{#if currentUser}}
             {{> consultaSubmit}}
           {{else}}
             <p>Por favor inicie sesión para realizar esta consulta.</p>
           {{/if}}
         </div>
-        <div id="menu1" class="tab-pane fade">
+        <div id="datos" class="tab-pane fade">
           <h3>Menu 1</h3>
+          <div class="pull-right">
+              <a href="{{urlFoto foto}}" target="_blank"><img src="{{urlFoto foto store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" /></a>
+
+            <!-- <a href="#" class="thumbnail">
+            </a> -->
+          </div>
           <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         </div>
-        <div id="menu2" class="tab-pane fade">
-          <h3>Menu 2</h3>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
-        <div id="menu3" class="tab-pane fade">
+        <div id="historial" class="tab-pane fade">
           <h3>Últimas consultas</h3>
           <ul class="comments">
             {{#each consultas}}
               {{> consultaItem}}
             {{/each}}
           </ul>
+        </div>
+        <div id="archivos" class="tab-pane fade">
+          <h3>Menu 2</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
         </div>
       </div>
     </div>

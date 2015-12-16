@@ -33,6 +33,13 @@ Meteor.publish('consultas', function(pacienteId) {
   return Consultas.find({pacienteId: pacienteId});
 });
 
+Meteor.publish('imagenes', function(pacienteId) {debugger
+  check(pacienteId, String);
+  var retorno = Imagenes.find({});
+  console.log('server publication img', retorno);
+  return retorno;
+});
+
 function buildRegExp(searchText) {
   // this is a dumb implementation
   var parts = searchText.trim().split(/[ \-\:]+/);
