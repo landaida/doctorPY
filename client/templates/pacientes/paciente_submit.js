@@ -10,7 +10,13 @@ Template.pacienteSubmit.helpers({
   },
   photo: function () {
     return '/img/user_profile_photo.png';
-  }
+  },
+  pull: function () {
+    var retorno = 'pull-right'
+    if(!Meteor.Device.isDesktop())
+      retorno = 'pull-left';
+    return retorno;
+  },
 });
 Template.pacienteSubmit.created=function(){
   this.fotoFile=new ReactiveVar();
