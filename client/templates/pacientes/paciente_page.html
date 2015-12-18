@@ -1,13 +1,16 @@
 <template name="pacientePage">
-  <div class="paciente-page page">
 
-    <div class="container">
-      <h3 style="float: right;">{{{nombre}}}</h3>
+
+
+    <!-- <div class="nav-tabs-responsive"> -->
+      <!-- <div class="pull-right">
+        <h2>{{{nombre}}}</h2>
+      </div> -->
       <ul class="nav nav-pills" style="margin-top: 50px;">
-        <li class="active"><a data-toggle="pill" href="#consultar"><span class="glyphicon glyphicon-list-alt"></span> Consultar</a></li>
-        <li><a data-toggle="pill" href="#datos"><span class="glyphicon glyphicon-user"></span> Datos del Paciente</a></li>
-        <li><a data-toggle="pill" href="#historial"><span class="glyphicon glyphicon-time"></span> Historial</a></li>
-        <li><a data-toggle="pill" href="#archivos"><span class="glyphicon glyphicon-floppy-save"></span> Archivos</a></li>
+        <li class="active"><a data-toggle="pill" href="#consultar"><span class="glyphicon glyphicon-list-alt"></span>{{renderImageAndText 'Consultar'}}</a></li>
+        <li><a data-toggle="pill" href="#datos"><span class="glyphicon glyphicon-user"></span>{{renderImageAndText 'Datos del Paciente'}}</a></li>
+        <li><a data-toggle="pill" href="#historial"><span class="glyphicon glyphicon-time"></span>{{renderImageAndText 'Historial'}}</a></li>
+        <li><a data-toggle="pill" href="#archivos"><span class="glyphicon glyphicon-floppy-save"></span>{{renderImageAndText 'Archivos'}}</a></li>
       </ul>
 
       <div class="tab-content">
@@ -40,7 +43,7 @@
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
 
-  </div>
+
 </template>

@@ -1,19 +1,26 @@
 <template name="pacienteItem">
   <div class="paciente">
-    <div class="paciente-content">
-      <h3>
-        <div class="name">
-          {{{nombre}}} - {{{dni}}}
-        </div>
-      </h3>
-      <p>
-        registrado por {{author}},
-        <span style="color: #337ab7;">{{consultasCount}} consultas</span>
-        <!-- {{#if ownPaciente}}<a href="{{pathFor 'pacienteEdit'}}">Edit</a>{{/if}} -->
-      </p>
+    <div class="row">
+      <div class="paciente-content col-xs-10">
+        <h3>
+          <div class="name">
+            {{{nombre}}}
+          </div>
+          <div class="name">
+            {{{numberFormat dni}}}
+          </div>
+        </h3>
+        <p>
+          registrado por {{author}},
+          <span style="color: #337ab7;">{{consultasCount}} consultas</span>
+          <!-- {{#if ownPaciente}}<a href="{{pathFor 'pacienteEdit'}}">Edit</a>{{/if}} -->
+        </p>
+      </div>
+      <div class="col-xs-2">
+        <a href="{{pathFor 'pacientePage'}}" class="discuss btn btn-primary">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+      </div>
     </div>
-    <a href="{{pathFor 'pacientePage'}}" class="discuss btn btn-primary">
-      <span class="glyphicon glyphicon-pencil"></span>
-    </a>
   </div>
 </template>

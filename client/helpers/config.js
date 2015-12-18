@@ -3,3 +3,5 @@ Accounts.ui.config({
 });
 
 moment.locale('es')
+
+numeral.language('es')

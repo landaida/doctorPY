@@ -6,6 +6,10 @@ var helpers = {
     }
     return date;
   },
+  numberFormat: function(value){
+      if(value)
+        return numeral(value).format('0,0');        
+  },
   numbersonly: function (myfield, e){
     var key;
     var keychar;
@@ -35,6 +39,12 @@ var helpers = {
     var retorno = 'container'
     if(!Meteor.Device.isDesktop())
       retorno = 'container-fluid';
+    return retorno;
+  },
+  renderImageAndText: function(text) {
+    var retorno = ' '+text;
+    if(!Meteor.Device.isDesktop())
+      retorno = '';
     return retorno;
   }
 };

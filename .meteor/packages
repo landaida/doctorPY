@@ -30,3 +30,5 @@ cfs:standard-packages
 cfs:gridfs
 mystor:device-detection
 twbs:bootstrap
+numeral:numeral
+numeral:languages
