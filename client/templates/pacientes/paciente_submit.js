@@ -1,5 +1,5 @@
 Template.pacienteSubmit.onCreated(function() {
-  Session.set('pacienteSubmitErrors', {});
+  Session.set('pacienteSubmitErrors', {});  
 });
 Template.pacienteSubmit.helpers({
   errorMessage: function(field) {
@@ -30,6 +30,9 @@ Template.pacienteSubmit.helpers({
   },
   isInserting: function(){
     return !this._id;
+  },
+  isEditing: function(){
+    return this._id;
   }
 });
 Template.pacienteSubmit.created=function(){

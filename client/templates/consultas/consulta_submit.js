@@ -8,6 +8,9 @@ Template.consultaSubmit.helpers({
   },
   errorClass: function (field) {
     return !!Session.get('consultaSubmitErrors')[field] ? 'has-error' : '';
+  },
+  isEditing: function(){
+    return this._id != null;
   }
 });
 
