@@ -17,6 +17,20 @@ Template.pacienteSubmit.helpers({
       retorno = 'pull-left';
     return retorno;
   },
+  foto: function() {
+    var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
+    return foto[0];
+  },
+  urlFoto: function(foto) {
+    if(foto)
+      return foto.url();
+    else {
+      return '/img/user_profile_photo.png';
+    }
+  },
+  isInserting: function(){
+    return !this._id;
+  }
 });
 Template.pacienteSubmit.created=function(){
   this.fotoFile=new ReactiveVar();

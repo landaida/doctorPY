@@ -22,13 +22,8 @@
           {{/if}}
         </div>
         <div id="datos" class="tab-pane fade">
-          <h3>Menu 1</h3>
-          <div class="pull-right">
-            <a href="#" class="thumbnail" style="background: transparent; border: none;">
-              <a href="{{urlFoto foto}}" target="_blank"><img src="{{urlFoto foto store='thumbs' uploading='/img/loading.gif' storing='/img/storing.gif'}}" alt="" class="thumbnail" /></a>
-            </a>
-          </div>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <h3>Datos Personales</h3>
+          {{> pacienteSubmit}}
         </div>
         <div id="historial" class="tab-pane fade">
           <h3>Últimas consultas</h3>
