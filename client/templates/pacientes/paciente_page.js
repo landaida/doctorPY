@@ -14,17 +14,21 @@ Template.pacientePage.helpers({
     }
   },
   tituloPage: function(){
-    return Session.get('tituloPage') ? Session.get('tituloPage') : 'Datos de la consulta';
+    //setTimeout(function(){
+      return Session.get('tituloPage') ? Session.get('tituloPage') : 'Datos de la consulta';
+    //}, 50);
   }
 });
 
 
 Template.pacientePage.events({
   'click .listanav': function(e, template){
-    e.preventDefault(); 
+    e.preventDefault();
     //alert(e.target.title);
-    console.log(e.target.title);
-      Session.set('tituloPage', e.target.title);
+
+      console.log(e);
+      Session.set('tituloPage', e.target.offsetParent.title);
+
    },
   'click .btn-danger': function(e, template){
       Router.go('pacienteList');

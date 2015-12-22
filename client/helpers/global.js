@@ -8,7 +8,7 @@ var helpers = {
   },
   numberFormat: function(value){
       if(value)
-        return numeral(value).format('0,0');        
+        return numeral(value).format('0,0');
   },
   numbersonly: function (myfield, e){
     var key;
@@ -46,6 +46,9 @@ var helpers = {
     if(!Meteor.Device.isDesktop())
       retorno = '';
     return retorno;
+  },
+  fechaHoy: function(onlyDate) {
+    return Session.get("time");
   }
 };
 
