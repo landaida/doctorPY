@@ -39,9 +39,3 @@ Meteor.publish('imagenes', function(pacienteId) {debugger
   //console.log('server publication img', retorno);
   return retorno;
 });
-
-function buildRegExp(searchText) {
-  // this is a dumb implementation
-  var parts = searchText.trim().split(/[ \-\:]+/);
-  return new RegExp("(" + parts.join('|') + ")", "ig");
-}

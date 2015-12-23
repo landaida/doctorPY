@@ -1,3 +1,13 @@
+
+Template.pacientePage.onRendered(function () {
+  var foto = Imagenes.find({"metadata.pacienteId": this.data._id}).fetch();
+  if(foto[0]){
+    this.$('#div-thumbnail').show();
+  }else{
+    this.$('#div-thumbnail').hide();
+  }
+});
+
 Template.pacientePage.helpers({
   consultas: function() {
     return Consultas.find({pacienteId: this._id});
@@ -23,12 +33,9 @@ Template.pacientePage.helpers({
 
 Template.pacientePage.events({
   'click .listanav': function(e, template){
-    e.preventDefault();
-    //alert(e.target.title);
-
-      console.log(e);
+      e.preventDefault();
       Session.set('tituloPage', e.target.offsetParent.title);
-
+      //Template.pacientePage.__helpers.get('foto').call()
    },
   'click .btn-danger': function(e, template){
       Router.go('pacienteList');

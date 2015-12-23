@@ -1,4 +1,19 @@
 var helpers = {
+  validatePaciente : function (paciente) {
+    var errors = {};debugger
+    if (!paciente.nombre)
+      errors.nombre = "Por favor complete el nombre del paciente\n";
+    if (!paciente.edad)
+      errors.edad =  "Por favor complete la edad del paciente\n";
+    if (!paciente.fechaNacimiento)
+      errors.fechaNacimiento =  "Por favor complete la fecha de nacimiento del paciente\n";
+    return errors;
+  },
+  buildRegExp: function(searchText) {
+    // this is a dumb implementation
+    var parts = searchText.trim().split(/[ \-\:]+/);
+    return new RegExp("(" + parts.join('|') + ")", "ig");
+  },
   dateToText: function(date) {
     if ( date) {
       if(moment(date).isValid())
@@ -47,8 +62,12 @@ var helpers = {
       retorno = '';
     return retorno;
   },
-  fechaHoy: function(onlyDate) {
-    return Session.get("time");
+  fechaHoy: function() {
+    Meteor.call("getServerDate", function (error, result) {
+      var fecha = moment(result).format("YYYY/MM/DD");
+      console.log(fecha);
+      return fecha.toString();
+    });
   }
 };
 

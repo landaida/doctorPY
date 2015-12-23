@@ -8,3 +8,11 @@ Template.pacienteItem.helpers({
     return a.hostname;
   }
 });
+
+
+// Template.pacienteItem.events({
+//   'click #btn-edit': function(e, template){
+//       e.preventDefault();
+//       Router.go('pacientePage');
+//    }
+// });

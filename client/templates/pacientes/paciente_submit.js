@@ -1,5 +1,6 @@
 Template.pacienteSubmit.onCreated(function() {
-  Session.set('pacienteSubmitErrors', {});  
+  Session.set('pacienteSubmitErrors', {});
+  this.fotoFile=new ReactiveVar();
 });
 Template.pacienteSubmit.helpers({
   errorMessage: function(field) {
@@ -24,9 +25,6 @@ Template.pacienteSubmit.helpers({
   urlFoto: function(foto) {
     if(foto)
       return foto.url();
-    else {
-      return '/img/user_profile_photo.png';
-    }
   },
   isInserting: function(){
     return !this._id;
@@ -35,9 +33,6 @@ Template.pacienteSubmit.helpers({
     return this._id;
   }
 });
-Template.pacienteSubmit.created=function(){
-  this.fotoFile=new ReactiveVar();
-};
 Template.pacienteSubmit.events({
   'submit form': function(e, template) {
     //poner siempre, previene back or
@@ -45,12 +40,13 @@ Template.pacienteSubmit.events({
 
     var paciente = {
       dni: $(e.target).find('[name=dni]').val(),
-      nombre: $(e.target).find('[name=nombre]').val()
+      nombre: $(e.target).find('[name=nombre]').val(),
+      fechaNacimiento: $(e.target).find('[name=fechaNacimiento]').val()
     };
 
     //valida que hay title and url del lado cliente
     var errors = validatePaciente(paciente);
-    if (errors.dni || errors.nombre)
+    if (errors.dni || errors.nombre || errors.fechaNacimiento)
       return Session.set('pacienteSubmitErrors', errors);
 
     //paciente._id = Pacientes.insert(paciente);
@@ -84,11 +80,9 @@ Template.pacienteSubmit.events({
     // Rudimentary check that we're dealing with an image
     var reader = new FileReader();
     if (file && file.type.substring(0,6) === 'image/') {
-
-        console.log(reader, 'before');
         reader.onload = function() {
-            console.log(reader.result, $('#foto'));
-            $('#foto').attr('src', reader.result);
+          $('#foto').attr('src', reader.result);
+          $('#div-thumbnail').show();
         }
     }
      reader.readAsDataURL(file);

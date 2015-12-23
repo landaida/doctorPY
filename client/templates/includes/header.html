@@ -8,17 +8,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{pathFor 'pacienteList'}}">
-        <span class="glyphicon glyphicon-home"></span> Home
-      </a>
+      <div class="form-group">
+        <a class="navbar-brand" href="{{pathFor 'pacienteList'}}">
+          <img src="/img/ic_home_white_24px.svg"/>
+        </a>
+        {{#if currentUser}}
+          <button type="button" name="btnAddPaciente" id="btnAddPaciente" class="btn btn-primary btn-sm" style="margin-top:10px;"><img src="/img/ic_add_white_24px.svg"/>Paciente</button>
+        {{/if}}
+      </div>
     </div>
     <div class="collapse navbar-collapse" id="navigation">
-      {{#if currentUser}}
+      <!-- {{#if currentUser}}
       <ul class="nav navbar-nav">
           <li>
             <button type="button" name="btnAddPaciente" id="btnAddPaciente" class="btn btn-primary btn-sm" style="margin-top:10px;"><span class="glyphicon glyphicon glyphicon-plus"></span> Paciente</button>
           </li>
-      </ul>
+      </ul> -->
       <!-- <ul class="nav navbar-nav navbar-right">
           <div class="dropdown" style="margin:10px 10px 0px 0px;">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -37,7 +42,7 @@
             </ul>
           </div>
       </ul> -->
-      {{/if}}
+      <!-- {{/if}} -->
       <ul class="nav navbar-nav navbar-right">
         {{> loginButtons}}
       </ul>
