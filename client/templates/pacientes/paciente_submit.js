@@ -1,7 +1,22 @@
 Template.pacienteSubmit.onCreated(function() {
   Session.set('pacienteSubmitErrors', {});
   this.fotoFile=new ReactiveVar();
+  this.edad=new ReactiveVar();
 });
+Template.pacienteSubmit.onRendered(function() {
+  getEdad(undefined, this);
+});
+getEdad = function(fechaNacimiento, template){
+  if(!fechaNacimiento) fechaNacimiento = template.data.fechaNacimiento;
+  var today = new Date();
+  var birthDate = new Date(fechaNacimiento);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  template.edad.set(age);
+}
 Template.pacienteSubmit.helpers({
   errorMessage: function(field) {
     return Session.get('pacienteSubmitErrors')[field];
@@ -34,6 +49,9 @@ Template.pacienteSubmit.helpers({
   },
   maxDate: function(){
     return Session.get('serverDate');
+  },
+  edad: function(){
+    return Template.instance().edad.get();
   }
 });
 Template.pacienteSubmit.events({
@@ -95,5 +113,8 @@ Template.pacienteSubmit.events({
     FS.Utility.eachFile(event, function(file) {
       template.fotoFile.set(file);
     });
+  },
+  'blur #fechaNacimiento': function(e, template) {
+     getEdad($(e.target).val(), template);
   }
 });

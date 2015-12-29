@@ -20,8 +20,13 @@
             <div class="form-group {{errorClass 'fechaNacimiento'}}">
               <label class="control-label" for="fechaNacimiento">Fecha de nacimiento</label>
               <div class="controls">
-                  <input name="fechaNacimiento" id="fechaNacimiento" type="date" required="true" value="{{fechaNacimiento}}" max="{{maxDate}}" class="form-control"/>
+                  <div class="input-group">
+                    <input name="fechaNacimiento" id="fechaNacimiento" type="date" required="true" value="{{fechaNacimiento}}" max="{{maxDate}}" class="form-control"/>
+                    <span class="input-group-addon" id="basic-addon1">{{edad}} <img src="/img/ic_cake_black_18px.svg"/></span>
+                  </div>
                   <span class="help-block">{{errorMessage 'fechaNacimiento'}}</span>
+
+
               </div>
             </div>
           </div>
