@@ -31,6 +31,9 @@ Template.pacienteSubmit.helpers({
   },
   isEditing: function(){
     return this._id;
+  },
+  maxDate: function(){
+    return Session.get('serverDate');
   }
 });
 Template.pacienteSubmit.events({
@@ -60,16 +63,18 @@ Template.pacienteSubmit.events({
     if (result.pacienteExists)
       throwError('Este paciente ya existe');
 
-    var file = new FS.File(template.fotoFile.get());
-    file.metadata = {pacienteId: result._id, userId: Meteor.userId()};
+    if(template.fotoFile.get()){
+      var file = new FS.File(template.fotoFile.get());
+      file.metadata = {pacienteId: result._id, userId: Meteor.userId()};
 
-    Imagenes.insert(file, function (err, fileObj) {
-      if (err){
-         // handle error
-      } else {
-        //var userId = Meteor.userId();
-      }
-    });
+      Imagenes.insert(file, function (err, fileObj) {
+        if (err){
+           // handle error
+        } else {
+          //var userId = Meteor.userId();
+        }
+      });
+    }
     Router.go('pacientePage', {_id: result._id});
    });
  },

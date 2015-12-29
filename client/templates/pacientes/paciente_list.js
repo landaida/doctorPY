@@ -6,21 +6,14 @@ Template.pacienteList.onDestroyed(function() {
   Session.set('isListPacienteRun', false);
 });
 
-var options = {
-  keepHistory: 1000 * 60 * 5,
-  localSearch: false
-};
-var fields = ['nombre', 'dni'];
-
-PacientesSearch = new SearchSource('pacientes', fields, options);
-
 Template.searchResult.helpers({
   getPacientes: function() {
+    var controller = Router.current();
     return PacientesSearch.getData({
       transform: function(matchText, regExp) {
         return matchText.replace(regExp, "<b>$&</b>")
       },
-      sort: {isoScore: -1}
+      sort: {nombre: -1}
     });
   },
 
@@ -30,12 +23,32 @@ Template.searchResult.helpers({
 });
 
 Template.searchResult.rendered = function() {
-  PacientesSearch.search('');
+  var controller = Router.current();
+  PacientesSearch.search('', {limit: controller.pacientesLimit()});
 };
 
 Template.searchBox.events({
   "keyup #search-box": _.throttle(function(e) {
+    var controller = Router.current();
     var text = $(e.target).val().trim();
-    PacientesSearch.search(text);
+    PacientesSearch.search('', {limit: controller.pacientesLimit()});
   }, 200)
 });
+
+// Template.pacienteList.events({
+//   'click .load-more': function (e){debugger
+//     console.log('load-more');
+//     var controller = Router.current();
+//     var text = $(e.target).val().trim();
+//     PacientesSearch.search(text, {limit: controller.pacientesLimit()});
+//   }
+// });
+
+
+var options = {
+  keepHistory: 1000 * 60 * 5,
+  localSearch: false
+}
+var fields = ['nombre', 'dni']
+
+PacientesSearch = new SearchSource('pacientes', fields, options);

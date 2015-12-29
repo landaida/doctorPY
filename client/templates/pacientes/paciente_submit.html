@@ -20,7 +20,7 @@
             <div class="form-group {{errorClass 'fechaNacimiento'}}">
               <label class="control-label" for="fechaNacimiento">Fecha de nacimiento</label>
               <div class="controls">
-                  <input name="fechaNacimiento" id="fechaNacimiento" type="date" required="true" value="{{fechaNacimiento}}" max="{{fechaHoy}}" class="form-control"/>
+                  <input name="fechaNacimiento" id="fechaNacimiento" type="date" required="true" value="{{fechaNacimiento}}" max="{{maxDate}}" class="form-control"/>
                   <span class="help-block">{{errorMessage 'fechaNacimiento'}}</span>
               </div>
             </div>

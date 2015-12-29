@@ -4,7 +4,6 @@ Meteor.methods({
       return _time;
   },
   getServerDate: function () {
-      var _time = new Date;
-      return _time;
+      return moment(new Date).format("YYYY-MM-DD");
   }
 });

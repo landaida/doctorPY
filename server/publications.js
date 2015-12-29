@@ -1,5 +1,12 @@
 SearchSource.defineSource('pacientes', function(searchText, options) {
-  var options = {sort: {isoScore: -1}, limit: 20};
+  console.log('search on server', options);
+  if(!options){
+    options = {sort: {nombre: -1}, limit: 10};
+  } else if(!options.limit){
+    options.limit = 10;
+  } else if(!options.sort){
+    options.sort = {nombre: -1};
+  }
 
   if(searchText) {
     var regExp = buildRegExp(searchText);
@@ -39,3 +46,9 @@ Meteor.publish('imagenes', function(pacienteId) {debugger
   //console.log('server publication img', retorno);
   return retorno;
 });
+
+buildRegExp = function(searchText) {
+  // this is a dumb implementation
+  var parts = searchText.trim().split(/[ \-\:]+/);
+  return new RegExp("(" + parts.join('|') + ")", "ig");
+}
