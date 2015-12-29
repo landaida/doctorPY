@@ -1,6 +1,6 @@
 Meteor.methods({
   getServerTime: function () {
-      var _time = (new Date).toTimeString();
+      var _time = moment(new Date).format('HH:mm:ss.SSS');
       return _time;
   },
   getServerDate: function () {

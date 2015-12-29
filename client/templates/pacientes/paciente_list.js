@@ -7,15 +7,15 @@ Template.pacienteList.onDestroyed(function() {
 });
 
 Template.searchResult.helpers({
-  getPacientes: function() {
-    var controller = Router.current();
-    return PacientesSearch.getData({
-      transform: function(matchText, regExp) {
-        return matchText.replace(regExp, "<b>$&</b>")
-      },
-      sort: {nombre: -1}
-    });
-  },
+  // getPacientes: function() {
+  //   var controller = Router.current();
+  //   return PacientesSearch.getData({
+  //     transform: function(matchText, regExp) {
+  //       return matchText.replace(regExp, "<b>$&</b>")
+  //     },
+  //     sort: {nombre: -1}
+  //   });
+  // },
 
   isLoading: function() {
     return PacientesSearch.getStatus().loading;
@@ -31,18 +31,9 @@ Template.searchBox.events({
   "keyup #search-box": _.throttle(function(e) {
     var controller = Router.current();
     var text = $(e.target).val().trim();
-    PacientesSearch.search('', {limit: controller.pacientesLimit()});
+    PacientesSearch.search(text, {limit: controller.pacientesLimit()});
   }, 200)
 });
-
-// Template.pacienteList.events({
-//   'click .load-more': function (e){debugger
-//     console.log('load-more');
-//     var controller = Router.current();
-//     var text = $(e.target).val().trim();
-//     PacientesSearch.search(text, {limit: controller.pacientesLimit()});
-//   }
-// });
 
 
 var options = {
