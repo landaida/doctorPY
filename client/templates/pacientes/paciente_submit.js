@@ -4,7 +4,8 @@ Template.pacienteSubmit.onCreated(function() {
   this.edad=new ReactiveVar();
 });
 Template.pacienteSubmit.onRendered(function() {
-  getEdad(undefined, this);
+  if(this.data)
+    getEdad(undefined, this);
 });
 getEdad = function(fechaNacimiento, template){
   if(!fechaNacimiento) fechaNacimiento = template.data.fechaNacimiento;
@@ -115,6 +116,8 @@ Template.pacienteSubmit.events({
     });
   },
   'blur #fechaNacimiento': function(e, template) {
-     getEdad($(e.target).val(), template);
+     var fecha = $(e.target).val();
+     if(fecha)
+        getEdad(fecha, template);
   }
 });
