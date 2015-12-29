@@ -37,7 +37,7 @@ Template.pacientePage.events({
       Session.set('tituloPage', e.target.offsetParent.title);
       //Template.pacientePage.__helpers.get('foto').call()
    },
-  'click .btn-danger': function(e, template){
+  'click #btnCancelar': function(e, template){
       Router.go('pacienteList');
    },
 
