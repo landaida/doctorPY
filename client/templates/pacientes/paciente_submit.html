@@ -1,6 +1,17 @@
 <template name="pacienteSubmit">
   <form class="consulta-form form">
     <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12" hidden="{{isEditing}}">
+        <div class="form-group">
+          <button type="submit" value="Guardar" class="btn btn-primary btn-xs pull-right" id="btnGuardar"><img src="/img/ic_done_white_24px.svg"/></button>
+          <label for="file-up" class="btn btn-primary btn-xs pull-right" style="margin-right: 5px;">
+            <img src="/img/ic_add_a_photo_white_24px.svg" />
+            <input type="file" name="file-up" id="file-up" style="display:none">
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <!-- <div class="col-xs-12 col-md-12 col-lg-12"> -->
         <!-- <div class="col-xs-8 col-md-8 col-lg-8"> -->
           <!-- <div class="col-xs-12 col-md-12 col-lg-12"> -->
@@ -118,8 +129,8 @@
           </div>
         <!-- </div> -->
 
-        <!-- <div class="col-xs-4 col-md-4 col-lg-6 pull-right">
-          <div class="form-group {{pull_right_device}}">
+        <div class="col-xs-12 col-md-12 col-lg-6">
+          <div class="form-group">
             <div id="div-thumbnail" hidden="true">
               <a href="#" class="thumbnail" style="background: transparent; border: none;margin-bottom: 0px !important">
                 <a href="{{urlFoto foto}}" target="_blank">
@@ -127,19 +138,15 @@
                 </a>
               </a>
             </div>
-            <label for="file-up" class="btn btn-primary btn-xs pull-right" style="margin-right: 5px;">
-              <img src="/img/ic_add_a_photo_white_24px.svg" />
-              <input type="file" name="file-up" id="file-up" style="display:none">
-            </label>
           </div>
-        </div> -->
+        </div>
 
-        <div class="col-xs-12 col-md-12 col-lg-12">
+        <!-- <div class="col-xs-12 col-md-12 col-lg-12">
           <hr>
           <div class="form-group pull-right" hidden="{{isEditing}}">
             <input type="submit" value="Guardar" class="btn btn-primary" />
           </div>
-        </div>
+        </div> -->
 
       <!-- </div> -->
     </div>

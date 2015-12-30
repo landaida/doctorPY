@@ -1,11 +1,16 @@
 
 Template.pacientePage.onRendered(function () {
-  var foto = Imagenes.find({"metadata.pacienteId": this.data._id}).fetch();
+  var me = this;
+  setTimeout(function(){
+  var foto = Imagenes.find({"metadata.pacienteId": me.data._id}).fetch();
   if(foto[0]){
-    this.$('#div-thumbnail').show();
+    console.log('photo found');
+    me.$('#div-thumbnail').show();
   }else{
-    this.$('#div-thumbnail').hide();
+    me.$('#div-thumbnail').hide();
+    console.log('photo not found', me);
   }
+}, 50);
 });
 
 Template.pacientePage.helpers({
