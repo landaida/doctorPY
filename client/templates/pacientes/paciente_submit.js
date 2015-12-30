@@ -97,6 +97,7 @@ Template.pacienteSubmit.events({
       sexo: $(e.target).find('[name=sexo]').val(),
       estadoCivil: $(e.target).find('[name=estadoCivil]').val(),
       domicilio: $(e.target).find('[name=domicilio]').val(),
+      email: $(e.target).find('[name=email]').val(),
       aseguradora: $(e.target).find('[name=aseguradora]').val(),
       telefono1: $(e.target).find('[name=telefono1]').val(),
       telefono2: $(e.target).find('[name=telefono2]').val(),
