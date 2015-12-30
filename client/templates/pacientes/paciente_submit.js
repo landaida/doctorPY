@@ -28,10 +28,10 @@ Template.pacienteSubmit.helpers({
   photo: function () {
     return '/img/user_profile_photo.png';
   },
-  pull: function () {
+  pull_right_device: function () {
     var retorno = 'pull-right'
     if(!Meteor.Device.isDesktop())
-      retorno = 'pull-left';
+      retorno = '';
     return retorno;
   },
   foto: function() {
@@ -53,6 +53,36 @@ Template.pacienteSubmit.helpers({
   },
   edad: function(){
     return Template.instance().edad.get();
+  },
+  selectedEstadoCivil: function(key){
+    var retorno = '';
+    if(this.estadoCivil && key === this.estadoCivil)
+        retorno = 'selected'
+    else if(!this.estadoCivil && key === ESTADO_CIVIL_SOLTERO)
+        retorno = 'selected'
+    return retorno;
+  },
+  selectedSexo: function(key){
+    var retorno = '';
+    if(this.sexo && key === this.sexo)
+        retorno = 'selected'
+    else if(!this.sexo && key === SEXO_MASCULINO)
+        retorno = 'selected'
+    return retorno;
+  },
+  selectedAseguradora: function(key){
+    var retorno = '';
+    if(this.aseguradora && key === this.aseguradora)
+        retorno = 'selected'
+    else if(!this.aseguradora && key === ASEGURADORA_NINGUNA)
+        retorno = 'selected'
+    return retorno;
+  },
+  hidden: function(index){
+    var retorno = 'hidden';
+    if((this.telefono2 && index == 2) || (this.telefono3 && index == 3))
+        retorno = '';
+    return retorno;
   }
 });
 Template.pacienteSubmit.events({
@@ -63,7 +93,14 @@ Template.pacienteSubmit.events({
     var paciente = {
       dni: $(e.target).find('[name=dni]').val(),
       nombre: $(e.target).find('[name=nombre]').val(),
-      fechaNacimiento: $(e.target).find('[name=fechaNacimiento]').val()
+      fechaNacimiento: $(e.target).find('[name=fechaNacimiento]').val(),
+      sexo: $(e.target).find('[name=sexo]').val(),
+      estadoCivil: $(e.target).find('[name=estadoCivil]').val(),
+      domicilio: $(e.target).find('[name=domicilio]').val(),
+      aseguradora: $(e.target).find('[name=aseguradora]').val(),
+      telefono1: $(e.target).find('[name=telefono1]').val(),
+      telefono2: $(e.target).find('[name=telefono2]').val(),
+      telefono3: $(e.target).find('[name=telefono3]').val(),
     };
 
     //valida que hay title and url del lado cliente
@@ -119,5 +156,13 @@ Template.pacienteSubmit.events({
      var fecha = $(e.target).val();
      if(fecha)
         getEdad(fecha, template);
-  }
+  },
+  'click .telefono': function(e, template){
+      e.preventDefault();
+      var v_telefono2 = $('#telefono2')[0], v_telefono3 = $('#telefono3')[0];
+      if(v_telefono2.getAttribute('class').indexOf('hidden') != -1)
+        v_telefono2.setAttribute('class', 'form-control')
+      else if(v_telefono3.getAttribute('class').indexOf('hidden') != -1)
+        v_telefono3.setAttribute('class', 'form-control')
+   },
 });
