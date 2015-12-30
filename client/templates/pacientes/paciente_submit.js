@@ -160,10 +160,10 @@ Template.pacienteSubmit.events({
   },
   'click .telefono': function(e, template){
       e.preventDefault();
-      var v_telefono2 = $('#telefono2')[0], v_telefono3 = $('#telefono3')[0];
+      var v_telefono2 = $('#div-telefono2')[0], v_telefono3 = $('#div-telefono3')[0];
       if(v_telefono2.getAttribute('class').indexOf('hidden') != -1)
-        v_telefono2.setAttribute('class', 'form-control')
+        v_telefono2.setAttribute('class', v_telefono2.getAttribute('class').replace('hidden', ''))
       else if(v_telefono3.getAttribute('class').indexOf('hidden') != -1)
-        v_telefono3.setAttribute('class', 'form-control')
+        v_telefono3.setAttribute('class', v_telefono3.getAttribute('class').replace('hidden', ''))
    },
 });
