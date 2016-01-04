@@ -28,19 +28,17 @@ Template.pacienteSubmit.helpers({
   photo: function () {
     return '/img/user_profile_photo.png';
   },
-  pull_right_device: function () {
-    var retorno = 'pull-right'
-    if(!Meteor.Device.isDesktop())
-      retorno = '';
-    return retorno;
-  },
   foto: function() {
     var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
     return foto[0];
   },
-  urlFoto: function(foto) {
+  urlFoto: function() {
+    var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
+    foto = foto[0];
     if(foto)
       return foto.url();
+    else
+      return '/img/user_profile_photo.png';
   },
   isInserting: function(){
     return !this._id;
@@ -102,6 +100,7 @@ Template.pacienteSubmit.events({
       telefono1: $(e.target).find('[name=telefono1]').val(),
       telefono2: $(e.target).find('[name=telefono2]').val(),
       telefono3: $(e.target).find('[name=telefono3]').val(),
+      otrosDatos: $(e.target).find('[name=otrosDatos]').val(),
     };
 
     //valida que hay title and url del lado cliente
@@ -135,21 +134,34 @@ Template.pacienteSubmit.events({
     Router.go('pacientePage', {_id: result._id});
    });
  },
+
+ 'click #btnFoto': function(event, template) {
+   $('#file-up').click();
+ },
  'change #file-up': function(event, template) {
     event.preventDefault();
 
     var file = event.target.files[0];
+
+    Resizer.resize(file, {width: 200, height: 200, cropSquare: false}, function(err, file) {
+      var urlCreator = window.URL || window.webkitURL;
+      var imageUrl = urlCreator.createObjectURL( file );
+      console.log('nuevo ', file);
+      $('#foto').attr('src', imageUrl);
+    });
+
     // Rudimentary check that we're dealing with an image
-    var reader = new FileReader();
-    if (file && file.type.substring(0,6) === 'image/') {
-        reader.onload = function() {
-          $('#foto').attr('src', reader.result);
-          $('#div-thumbnail').show();
-        }
-    }
-     reader.readAsDataURL(file);
+    // var reader = new FileReader();
+    // if (file && file.type.substring(0,6) === 'image/') {
+    //     reader.onload = function() {
+    //       //$('#foto').attr('src', reader.result);
+    //       //$('#div-thumbnail').show();
+    //     }
+    // }
+    //  reader.readAsDataURL(file);
 
     FS.Utility.eachFile(event, function(file) {
+      console.log('actual ', file);
       template.fotoFile.set(file);
     });
   },

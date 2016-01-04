@@ -1,16 +1,16 @@
 
 Template.pacientePage.onRendered(function () {
   var me = this;
-  setTimeout(function(){
-  var foto = Imagenes.find({"metadata.pacienteId": me.data._id}).fetch();
-  if(foto[0]){
-    console.log('photo found');
-    me.$('#div-thumbnail').show();
-  }else{
-    me.$('#div-thumbnail').hide();
-    console.log('photo not found', me);
-  }
-}, 50);
+//   setTimeout(function(){
+//   var foto = Imagenes.find({"metadata.pacienteId": me.data._id}).fetch();
+//   if(foto[0]){
+//     console.log('photo found');
+//     me.$('#div-thumbnail').show();
+//   }else{
+//     me.$('#div-thumbnail').hide();
+//     console.log('photo not found', me);
+//   }
+// }, 50);
 });
 
 Template.pacientePage.helpers({
@@ -21,7 +21,9 @@ Template.pacientePage.helpers({
     var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
     return foto[0];
   },
-  urlFoto: function(foto) {
+  urlFoto: function() {
+    var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
+    foto = foto[0];
     if(foto)
       return foto.url();
     else {

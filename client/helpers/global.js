@@ -46,7 +46,16 @@ var helpers = {
     if(!Meteor.Device.isDesktop())
       retorno = '';
     return retorno;
-  }
+  },
+  pull_desktop: function (side) {
+    var retorno = 'pull-' + side;
+    if(!Meteor.Device.isDesktop())
+      retorno = '';
+    return retorno;
+  },
+  isDesktop: function () {
+    return Meteor.Device.isDesktop();
+  },
 };
 
 _.each(helpers, function(value, key){
