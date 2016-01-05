@@ -76,6 +76,14 @@ Template.pacienteSubmit.helpers({
         retorno = 'selected'
     return retorno;
   },
+  selectedGrupoSanguineo: function(key){
+    var retorno = '';
+    if(this.grupoSanguineo && key === this.grupoSanguineo)
+        retorno = 'selected'
+    else if(!this.grupoSanguineo && key === 'O-')
+        retorno = 'selected'
+    return retorno;
+  },
   hidden: function(index){
     var retorno = 'hidden';
     if((this.telefono2 && index == 2) || (this.telefono3 && index == 3))
