@@ -1,4 +1,8 @@
-
+Template.pacientePage.onCreated(function () {
+  console.log('editing');
+  this.fotoFile=new ReactiveVar();
+  Session.set('editing', true);
+});
 Template.pacientePage.onRendered(function () {
   var me = this;
 //   setTimeout(function(){
@@ -47,5 +51,9 @@ Template.pacientePage.events({
   'click #btnCancelar': function(e, template){
       Router.go('pacienteList');
    },
-
+   'submit form': savePaciente,
+   'click .profile-image': function(event, template) {
+     $('#file-up').click();
+   },
+   'change #file-up': inputFileProfile,
 });

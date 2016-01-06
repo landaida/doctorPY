@@ -1,56 +1,68 @@
 <template name="pacientePage">
-
+  <form id="formPacientePage" class="consulta-form form">
 
 
     <!-- <div class="nav-tabs-responsive"> -->
-      <!-- <div class="pull-right">
+    <!-- <div class="pull-right">
         <h2>{{{nombre}}}</h2>
       </div> -->
-      <ul class="nav nav-pills" style="margin-top: 50px;">
-        <li class="active listanav" title="Datos de la consulta"><a data-toggle="pill" href="#consultar" class="tabPrincipal" title="Datos de la consulta"><span class="glyphicon glyphicon-list-alt"></span>{{renderImageAndText 'Consultar'}}</a></li>
-        <li class="listanav" title="Datos del Paciente"><a data-toggle="pill" href="#datos" class="tabPrincipal" title="Datos del Paciente"><span class="glyphicon glyphicon-user"></span>{{renderImageAndText 'Datos del Paciente'}}</a></li>
-        <li class="listanav" title="Historial de consultas"><a data-toggle="pill" href="#historial" class="tabPrincipal" title="Historial de consultas"><span class="glyphicon glyphicon-time"></span>{{renderImageAndText 'Historial'}}</a></li>
-        <li class="listanav" title="Archivos digitales"><a data-toggle="pill" href="#archivos" class="tabPrincipal" title="Archivos digitales"><span class="glyphicon glyphicon-floppy-save"></span>{{renderImageAndText 'Archivos'}}</a></li>
-      </ul>
+    <ul class="nav nav-pills" style="margin-top: 50px;">
+      <li class="active listanav" title="Datos de la consulta">
+        <a data-toggle="pill" href="#consultar" class="tabPrincipal" title="Datos de la consulta">
+          <span class="glyphicon glyphicon-list-alt"></span>{{renderImageAndText 'Consultar'}}</a>
+      </li>
+      <li class="listanav" title="Datos del Paciente">
+        <a data-toggle="pill" href="#datos" class="tabPrincipal" title="Datos del Paciente">
+          <span class="glyphicon glyphicon-user"></span>{{renderImageAndText 'Datos del Paciente'}}</a>
+      </li>
+      <li class="listanav" title="Historial de consultas">
+        <a data-toggle="pill" href="#historial" class="tabPrincipal" title="Historial de consultas">
+          <span class="glyphicon glyphicon-time"></span>{{renderImageAndText 'Historial'}}</a>
+      </li>
+      <li class="listanav" title="Archivos digitales">
+        <a data-toggle="pill" href="#archivos" class="tabPrincipal" title="Archivos digitales">
+          <span class="glyphicon glyphicon-floppy-save"></span>{{renderImageAndText 'Archivos'}}</a>
+      </li>
+    </ul>
 
-      <div class="tab-content">
-        <div class="row">
-          <div class="col-xs-6 col-md-6 col-lg-6">
-            <h5>{{tituloPage}}</h5>
+    <div class="tab-content">
+      <div class="row">
+        <div class="col-xs-6 col-md-6 col-lg-6">
+          <h5>{{tituloPage}}</h5>
+        </div>
+        <div class="col-xs-6 col-md-6 col-lg-6">
+          <div class="pull-right">
+            <a class="dropdown-toggle profile-image" data-toggle="dropdown">
+              <img id="foto" src="{{urlFoto}}" class="img-circle">
+            </a>
+            <input type="file" name="file-up" id="file-up" style="display:none">
+            <button type="submit" value="Guardar" class="btn btn-primary btn-xs" id="btnGuardar">
+              <img src="/img/ic_done_white_24px.svg" />
+            </button>
+            <button type="submit" value="Cancelar" class="btn btn-primary btn-xs" id="btnCancelar">
+              <img src="/img/ic_cancel_white_24px.svg" />
+            </button>
           </div>
-          <div class="col-xs-6 col-md-6 col-lg-6">
-            <div class="pull-right">
-              <!-- <label for="file-up" class="btn btn-info btn-xs">
-                <img src="/img/ic_add_a_photo_white_24px.svg" />
-                <input type="file" name="file-up" id="file-up" style="display:none">
-              </label> -->
-              <button type="submit" value="Guardar" class="btn btn-primary btn-xs" id="btnGuardar"><img src="/img/ic_done_white_24px.svg"/></button>
-              <button type="submit" value="Cancelar" class="btn btn-primary btn-xs" id="btnCancelar"><img src="/img/ic_cancel_white_24px.svg"/></button>
-            </div>
-          </div>
-        </div>
-        <div id="consultar" class="tab-pane fade in active">
-          {{#if currentUser}}
-            {{> consultaSubmit}}
-          {{else}}
-            <p>Por favor inicie sesión para realizar esta consulta.</p>
-          {{/if}}
-        </div>
-        <div id="datos" class="tab-pane fade">
-          {{> pacienteSubmit}}
-        </div>
-        <div id="historial" class="tab-pane fade">
-          <ul class="comments">
-            {{#each consultas}}
-              {{> consultaItem}}
-            {{/each}}
-          </ul>
-        </div>
-        <div id="archivos" class="tab-pane fade">
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
         </div>
       </div>
+      <div id="consultar" class="tab-pane fade in active">
+        {{#if currentUser}} {{> consultaSubmit}} {{else}}
+        <p>Por favor inicie sesión para realizar esta consulta.</p>
+        {{/if}}
+      </div>
+      <div id="datos" class="tab-pane fade">
+        {{> pacienteSubmit}}
+      </div>
+      <div id="historial" class="tab-pane fade">
+        <ul class="comments">
+          {{#each consultas}} {{> consultaItem}} {{/each}}
+        </ul>
+      </div>
+      <div id="archivos" class="tab-pane fade">
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+      </div>
+    </div>
     <!-- </div> -->
 
-
+  </form>
 </template>

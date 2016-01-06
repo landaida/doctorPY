@@ -10,6 +10,7 @@ Template.searchBox.helpers({
 Template.header.events({
   'click #btnAddPaciente': function(event, template) {
     event.preventDefault();
+    Session.set('editing', false);
     Router.go('pacienteSubmit');
   }
 });

@@ -1,5 +1,5 @@
 Template.pacienteSubmit.onCreated(function() {
-  Session.set('pacienteSubmitErrors', {});
+  Session.set('pacienteSubmitErrors', {});  
   this.fotoFile=new ReactiveVar();
   this.edad=new ReactiveVar();
 });
@@ -72,7 +72,7 @@ Template.pacienteSubmit.helpers({
     var retorno = '';
     if(this.aseguradora && key === this.aseguradora)
         retorno = 'selected'
-    else if(!this.aseguradora && key === ASEGURADORA_NINGUNA)
+    else if(!this.aseguradora && key === NINGUNA)
         retorno = 'selected'
     return retorno;
   },
@@ -80,7 +80,7 @@ Template.pacienteSubmit.helpers({
     var retorno = '';
     if(this.grupoSanguineo && key === this.grupoSanguineo)
         retorno = 'selected'
-    else if(!this.grupoSanguineo && key === 'O-')
+    else if(!this.grupoSanguineo && key === 'N')
         retorno = 'selected'
     return retorno;
   },
@@ -92,87 +92,12 @@ Template.pacienteSubmit.helpers({
   }
 });
 Template.pacienteSubmit.events({
-  'submit form': function(e, template) {
-    //poner siempre, previene back or
-    e.preventDefault();
+  'submit form': savePaciente,
 
-    var paciente = {
-      dni: $(e.target).find('[name=dni]').val(),
-      nombre: $(e.target).find('[name=nombre]').val(),
-      fechaNacimiento: $(e.target).find('[name=fechaNacimiento]').val(),
-      sexo: $(e.target).find('[name=sexo]').val(),
-      estadoCivil: $(e.target).find('[name=estadoCivil]').val(),
-      domicilio: $(e.target).find('[name=domicilio]').val(),
-      email: $(e.target).find('[name=email]').val(),
-      aseguradora: $(e.target).find('[name=aseguradora]').val(),
-      telefono1: $(e.target).find('[name=telefono1]').val(),
-      telefono2: $(e.target).find('[name=telefono2]').val(),
-      telefono3: $(e.target).find('[name=telefono3]').val(),
-      otrosDatos: $(e.target).find('[name=otrosDatos]').val(),
-    };
-
-    //valida que hay title and url del lado cliente
-    var errors = validatePaciente(paciente);
-    if (errors.dni || errors.nombre || errors.fechaNacimiento)
-      return Session.set('pacienteSubmitErrors', errors);
-
-    //paciente._id = Pacientes.insert(paciente);
-    //Router.go('pacientePage', paciente);
-    Meteor.call('pacienteInsert', paciente, function(error, result) {
-     // display the error to the user and abort
-    if (error)
-      return throwError(error.reason);
-
-     // show this result but route anyway
-    if (result.pacienteExists)
-      throwError('Este paciente ya existe');
-
-    if(template.fotoFile.get()){
-      var file = new FS.File(template.fotoFile.get());
-      file.metadata = {pacienteId: result._id, userId: Meteor.userId()};
-
-      Imagenes.insert(file, function (err, fileObj) {
-        if (err){
-           // handle error
-        } else {
-          //var userId = Meteor.userId();
-        }
-      });
-    }
-    Router.go('pacientePage', {_id: result._id});
-   });
- },
-
- 'click #btnFoto': function(event, template) {
+ 'click .profile-image': function(event, template) {
    $('#file-up').click();
  },
- 'change #file-up': function(event, template) {
-    event.preventDefault();
-
-    var file = event.target.files[0];
-
-    Resizer.resize(file, {width: 200, height: 200, cropSquare: false}, function(err, file) {
-      var urlCreator = window.URL || window.webkitURL;
-      var imageUrl = urlCreator.createObjectURL( file );
-      console.log('nuevo ', file);
-      $('#foto').attr('src', imageUrl);
-    });
-
-    // Rudimentary check that we're dealing with an image
-    // var reader = new FileReader();
-    // if (file && file.type.substring(0,6) === 'image/') {
-    //     reader.onload = function() {
-    //       //$('#foto').attr('src', reader.result);
-    //       //$('#div-thumbnail').show();
-    //     }
-    // }
-    //  reader.readAsDataURL(file);
-
-    FS.Utility.eachFile(event, function(file) {
-      console.log('actual ', file);
-      template.fotoFile.set(file);
-    });
-  },
+ 'change #file-up': inputFileProfile,
   'blur #fechaNacimiento': function(e, template) {
      var fecha = $(e.target).val();
      if(fecha)

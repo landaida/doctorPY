@@ -26,3 +26,13 @@
 html {
     overflow-y:scroll;
 }
+
+#foto {
+    box-shadow: 0px 0px 0px 3px #fff;
+}
+
+.profile-image{
+  padding: 7px;
+  text-decoration: none !important;
+  cursor: pointer;
+}
