@@ -1,20 +1,36 @@
 Template.consultaSubmit.onCreated(function() {
   Session.set('consultaSubmitErrors', {});
+  console.log('create consultaSubmit');
 });
 
 Template.consultaSubmit.helpers({
-  errorMessage: function(field) {
-    return Session.get('consultaSubmitErrors')[field];
+  errorMessage: function(field, index) {
+    if (typeof(index) == 'number')
+      return Session.get('consultaSubmitErrors')[field + index];
+    else
+      return Session.get('consultaSubmitErrors')[field];
   },
-  errorClass: function (field) {
-    return !!Session.get('consultaSubmitErrors')[field] ? 'has-error' : '';
+  errorClass: function(field, index) {
+    if (typeof(index) == 'number')
+      return !!Session.get('consultaSubmitErrors')[field + index] ? 'has-error' : '';
+    else
+      return !!Session.get('consultaSubmitErrors')[field] ? 'has-error' : '';
   },
-  isEditing: function(){
+  isEditing: function() {
     return this._id != null;
+  },
+  recetas: function() {
+    var t = Template.instance();
+    return t.view.parentView.parentView._templateInstance.recetas.get();
   }
 });
 
 Template.consultaSubmit.events({
+  'click #btnAdd': function(e, t) {
+    var recetas = t.view.parentView.parentView._templateInstance.recetas.get();
+    recetas.push(t.view.parentView.parentView._templateInstance.model.get());
+    t.view.parentView.parentView._templateInstance.recetas.set(recetas)
+  },
   'submit form': function(e, template) {
     e.preventDefault();
 
@@ -25,13 +41,13 @@ Template.consultaSubmit.events({
     };
 
     var errors = {};
-    if (! consulta.body) {
+    if (!consulta.body) {
       errors.body = "Por favor completa el contenido";
       return Session.set('consultaSubmitErrors', errors);
     }
 
     Meteor.call('consultaInsert', consulta, function(error, consultaId) {
-      if (error){
+      if (error) {
         throwError(error.reason);
       } else {
         $body.val('');

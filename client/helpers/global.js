@@ -1,8 +1,19 @@
+var containsAny = function(str, substrings) {
+  for (var i = 0; i != substrings.length; i++) {
+     var substring = substrings[i];
+     if (str.indexOf(substring) != - 1) {
+       return substring;
+     }
+  }
+  return null;
+}
+
+var arrayMonths = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'setiembre', 'octubre', 'noviembre', 'diciembre']
+
 var helpers = {
   dateToText: function(date) {
-    if ( date) {
-      if(moment(date).isValid())
-        return moment(date).format('LLL');
+    if ( containsAny(date, arrayMonths) == '') {
+        return moment(date, 'dd/mm/YYYY')//.format('LLL');
     }
     return date;
   },

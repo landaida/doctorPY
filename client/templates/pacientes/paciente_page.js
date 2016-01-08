@@ -1,7 +1,15 @@
 Template.pacientePage.onCreated(function () {
-  console.log('editing');
   this.fotoFile=new ReactiveVar();
   Session.set('editing', true);
+  console.log('create pacientePage');
+  this.recetas=new ReactiveVar();
+  this.model = new ReactiveVar();
+  this.model.set({medicamento:'', frecuencia:'', duracion:''});
+  this.recetas.set([]);
+
+  var recetas = this.recetas.get();
+  recetas.push(this.model.get());
+  this.recetas.set(recetas)
 });
 Template.pacientePage.onRendered(function () {
   var me = this;

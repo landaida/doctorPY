@@ -1,5 +1,5 @@
 Template.pacienteSubmit.onCreated(function() {
-  Session.set('pacienteSubmitErrors', {});  
+  Session.set('pacienteSubmitErrors', {});
   this.fotoFile=new ReactiveVar();
   this.edad=new ReactiveVar();
 });

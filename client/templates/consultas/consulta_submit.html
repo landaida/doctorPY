@@ -1,14 +1,116 @@
 <template name="consultaSubmit">
   <form name="consulta" class="consulta-form form">
-    <div class="form-group {{errorClass 'body'}}">
-        <div class="controls">
-            <label for="body">Observaciones</label>
-            <textarea name="body" id="body" class="form-control" rows="3"></textarea>
-            <span class="help-block">{{errorMessage 'body'}}</span>
-        </div>
+    <div class="form-group {{errorClass 'motivo'}}">
+      <div class="controls">
+        <label for="motivo">Motivo de la consulta</label>
+        <textarea name="motivo" id="motivo" class="form-control" rows="3"></textarea>
+        <span class="help-block">{{errorMessage 'motivo'}}</span>
+      </div>
     </div>
+    <div class="form-group {{errorClass 'diagnostico'}}">
+      <div class="controls">
+        <label for="diagnostico">Diagnóstico</label>
+        <textarea name="diagnostico" id="diagnostico" class="form-control" rows="3"></textarea>
+        <span class="help-block">{{errorMessage 'diagnostico'}}</span>
+      </div>
+    </div>
+    <div class="form-group {{errorClass 'tratamiento'}}">
+      <div class="controls">
+        <label for="tratamientos">Tratamiento</label>
+        <textarea name="tratamiento" id="tratamiento" class="form-control" rows="3"></textarea>
+        <span class="help-block">{{errorMessage 'tratamiento'}}</span>
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Receta</h3>
+        <div class="btn-group pull-right">
+          <a id="btnAdd" class="btn btn-info btn-sm">Agregar</a>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div style="overflow-y: auto; overflow-x: hidden; height:200px;">
+
+          <div class="row">
+            <div class="form-group">
+              <div class="col-xs-11 col-md-11 col-lg-5">
+                <label class="control-label">Medicamento</label>
+              </div>
+              <div class="col-xs-6 col-md-6 col-lg-3">
+                <label class="control-label">Frecuencia</label>
+              </div>
+              <div class="col-xs-5 col-md-5 col-lg-3">
+                <label class="control-label">Duración</label>
+              </div>
+              {{#each recetas}}
+              <div class="col-xs-11 col-md-11 col-lg-5">
+                <div class="form-group {{errorClass 'medicamento' @index}}">
+                  <input type="text" id="medicamento{{@index}}" name="medicamento{{@index}}" class="form-control" value="{{medicamento}}" />
+                  <span class="help-block">{{errorMessage 'medicamento' @index}}</span>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-6 col-lg-3">
+                <div class="form-group {{errorClass 'frecuencia' @index}}">
+                  <input type="number" id="frecuencia{{@index}}" name="frecuencia{{@index}}" placeholder=" c/ 6 horas" class="form-control" />
+                  <span class="help-block">{{errorMessage 'frecuencia' @index}}</span>
+                </div>
+              </div>
+              <div class="col-xs-5 col-md-5 col-lg-3">
+                <div class="form-group {{errorClass 'duracion' @index}}">
+                  <input type="number" id="duracion{{@index}}" name="duracion{{@index}}" placeholder="5 días" class="form-control" />
+                  <span class="help-block">{{errorMessage 'duracion' @index}}</span>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a data-toggle="tab" href="#recetas">Receta</a></li>
+        <li role="presentation" class="disabled"><a data-toggle="tab" href="#farmacos">Fármacos</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="recetas" class="tab-pane fade in active">
+
+        </div>
+        <div id="farmacos" class="tab-pane fade">
+          <div style="overflow: auto; height:200px;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><input data-index="0" name="btSelectItem" type="checkbox">  </th>
+                  <th>Nombre</th>
+                  <th>Drogas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="bs-checkbox"><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                  <td>Test 1</td>
+                  <td>Test 2</td>
+                </tr>
+                <tr>
+                  <td class="bs-checkbox"><input data-index="1" name="btSelectItem1" type="checkbox"></td>
+                  <td>Test 1</td>
+                  <td>Test 2</td>
+                </tr>
+                <tr>
+                  <td class="bs-checkbox"><input data-index="2" name="btSelectItem2" type="checkbox"></td>
+                  <td>Test 1</td>
+                  <td>Test 2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>-->
     <div hidden="{{isEditing}}">
-      <button type="submit" class="btn btn-primary" >Guardar Consulta</button>
+      <button type="submit" class="btn btn-primary">Guardar Consulta</button>
     </div>
   </form>
 </template>
