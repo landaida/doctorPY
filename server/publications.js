@@ -21,3 +21,7 @@ Meteor.publish('imagenes', function(pacienteId) {
   var retorno = Imagenes.find({});
   return retorno;
 });
+
+Meteor.publish('cie10', function(options) {
+  return Cie10.find({}, options);
+});

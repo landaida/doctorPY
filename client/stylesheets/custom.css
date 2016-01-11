@@ -227,3 +227,46 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #ffffff;
     background-color: #2fa4e7;
 }
+
+
+
+
+
+
+
+table {
+        width: 100%;
+        margin-top: -25px;
+    }
+
+    
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 30px;
+
+    /*text-align: left;*/
+}
+
+tbody {
+    height: 117px;
+    overflow-y: auto;
+}
+
+thead {
+    /* fallback */
+}
+
+
+tbody td, thead th {
+    width: 19.2%;
+    float: left;
+}

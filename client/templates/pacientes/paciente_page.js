@@ -4,7 +4,7 @@ Template.pacientePage.onCreated(function () {
   console.log('create pacientePage');
   this.recetas=new ReactiveVar();
   this.model = new ReactiveVar();
-  this.model.set({medicamento:'', frecuencia:'', duracion:''});
+  this.model.set({medicamento:'', dosis:'', frecuencia:'', duracion:''});
   this.recetas.set([]);
 
   var recetas = this.recetas.get();

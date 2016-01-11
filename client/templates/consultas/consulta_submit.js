@@ -1,5 +1,6 @@
 Template.consultaSubmit.onCreated(function() {
   Session.set('consultaSubmitErrors', {});
+  Session.set('isSearchCIE10', false);
   console.log('create consultaSubmit');
 });
 
@@ -22,10 +23,32 @@ Template.consultaSubmit.helpers({
   recetas: function() {
     var t = Template.instance();
     return t.view.parentView.parentView._templateInstance.recetas.get();
+  },
+  isSearchCIE10: function(group) {
+    var retorno = '';
+    if (Session.get('isSearchCIE10') == true) {
+      if (group == 0)
+        retorno = 'hidden'
+      else
+        retorno = '';
+    } else {
+      if (group == 0)
+        retorno = '';
+      else
+        retorno = 'hidden'
+    }
+
+    return retorno;
   }
 });
 
 Template.consultaSubmit.events({
+  'click #btnCie10': function(e, t) {
+    Session.set('isSearchCIE10', true);
+  },
+  'click #btnBack': function(e, t) {
+    Session.set('isSearchCIE10', false);
+  },
   'click #btnAdd': function(e, t) {
     var recetas = t.view.parentView.parentView._templateInstance.recetas.get();
     recetas.push(t.view.parentView.parentView._templateInstance.model.get());
