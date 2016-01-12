@@ -239,7 +239,7 @@ table {
         margin-top: -25px;
     }
 
-    
+
 
 thead, tbody, tr, td, th { display: block; }
 
@@ -269,4 +269,14 @@ thead {
 tbody td, thead th {
     width: 19.2%;
     float: left;
+}
+
+
+
+
+
+
+.line-par{
+  border-top: 1px solid #ddd;
+  line-height: 1.42857143;
 }

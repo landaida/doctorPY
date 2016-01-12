@@ -39,7 +39,15 @@ Template.consultaSubmit.helpers({
     }
 
     return retorno;
-  }
+  },
+  // cie17: function() {
+  //   var t = Template.instance();
+  //   return t.view.parentView.parentView._templateInstance.recetas.get();
+  // },
+  cie10Class: function(index) {
+
+    return index % 2 == 0 ? 'line-par' : '' ;
+  },
 });
 
 Template.consultaSubmit.events({

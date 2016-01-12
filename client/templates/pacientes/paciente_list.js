@@ -34,12 +34,3 @@ Template.searchBox.events({
     PacientesSearch.search(text, {limit: controller.pacientesLimit()});
   }, 200)
 });
-
-
-var options = {
-  keepHistory: 1000 * 60 * 5,
-  localSearch: false
-}
-var fields = ['nombre', 'dni']
-
-PacientesSearch = new SearchSource('pacientes', fields, options);

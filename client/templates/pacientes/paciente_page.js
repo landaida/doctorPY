@@ -33,7 +33,7 @@ Template.pacientePage.helpers({
     var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
     return foto[0];
   },
-  urlFoto: function() {
+  urlFoto: function() {debugger
     var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
     foto = foto[0];
     if(foto)
@@ -64,4 +64,10 @@ Template.pacientePage.events({
      $('#file-up').click();
    },
    'change #file-up': inputFileProfile,
+
+   "keyup #search-cie10": _.throttle(function(e) {
+     var text = $(e.target).val().trim();
+     console.log(text);
+     Cie10Search.search(text);
+   }, 500)
 });
