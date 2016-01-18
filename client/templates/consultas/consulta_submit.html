@@ -33,17 +33,17 @@
               </div>
             </div>
           </div>
-          <div class="panel-body">
-            <textarea name="diagnostico" id="diagnostico" class="form-control {{isSearchCIE10 0}}" rows="6"></textarea>
+          <div class="panel-body" style="padding: 0px 0px 0px 15px;">
+            <textarea name="diagnostico" id="diagnostico" class="form-control {{isSearchCIE10 0}}" rows="6" style="margin-top: 10px;margin-left: -8px;"></textarea>
             <span class="help-block">{{errorMessage 'diagnostico'}}</span>
             <div class="row {{isSearchCIE10 1}}">
               <div style="overflow:auto; height:105px">
                 {{#each cie10}}
                 <div class="col-xs-10 col-md-10 col-lg-10">
-                    {{{dec10}}}
+                    <label  title="{{dec10}}" class="crop-text-label">{{{dec10}}}</label>
                 </div>
                 <div class="col-xs-2 col-md-2 col-lg-2">
-                    <input type="checkbox"/>
+                    <input id="chk-cie10" name="chk-cie10" type="checkbox"/>
                 </div>
                 {{/each}}
               </div>

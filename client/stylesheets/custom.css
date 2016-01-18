@@ -280,3 +280,21 @@ tbody td, thead th {
   border-top: 1px solid #ddd;
   line-height: 1.42857143;
 }
+
+
+
+
+
+.crop-text-div{
+  overflow: hidden;
+  white-space: nowrap; /* Don't forget this one */
+  text-overflow: ellipsis;
+}
+
+.crop-text-label {
+    text-overflow:ellipsis;
+    overflow:hidden;
+    display:inline-block;
+    white-space:nowrap;
+    font-weight: normal !important;
+}

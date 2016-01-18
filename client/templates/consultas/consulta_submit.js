@@ -53,6 +53,7 @@ Template.consultaSubmit.helpers({
 Template.consultaSubmit.events({
   'click #btnCie10': function(e, t) {
     Session.set('isSearchCIE10', true);
+    Session.set('diagnosticos', undefined);
   },
   'click #btnBack': function(e, t) {
     Session.set('isSearchCIE10', false);
@@ -84,5 +85,20 @@ Template.consultaSubmit.events({
         $body.val('');
       }
     });
+  },
+  'click #chk-cie10': function(e){
+    var str = '';
+    if(Session.get('diagnosticos'))
+      str = Session.get('diagnosticos');
+
+    str += this.dec10 + '\n';
+
+    Session.set('diagnosticos', str);
+  },
+  'click #btnDone': function(e){
+    var v_diagnostico = $('[name="diagnostico"]'), str = '';
+    str = v_diagnostico.val() + '\n' + Session.get('diagnosticos');
+    v_diagnostico.val(str);
+    Session.set('isSearchCIE10', false);
   }
 });
