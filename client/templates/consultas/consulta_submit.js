@@ -53,7 +53,6 @@ Template.consultaSubmit.helpers({
 Template.consultaSubmit.events({
   'click #btnCie10': function(e, t) {
     Session.set('isSearchCIE10', true);
-    Session.set('diagnosticos', undefined);
   },
   'click #btnBack': function(e, t) {
     Session.set('isSearchCIE10', false);
@@ -87,18 +86,31 @@ Template.consultaSubmit.events({
     });
   },
   'click #chk-cie10': function(e){
-    var str = '';
-    if(Session.get('diagnosticos'))
-      str = Session.get('diagnosticos');
+    var lista = Session.get('diagnosticos');
 
-    str += this.dec10 + '\n';
+    if(!lista)
+      lista = [];
 
-    Session.set('diagnosticos', str);
+    lista.push(this);
+
+    Session.set('diagnosticos', lista);
   },
   'click #btnDone': function(e){
-    var v_diagnostico = $('[name="diagnostico"]'), str = '';
-    str = v_diagnostico.val() + '\n' + Session.get('diagnosticos');
-    v_diagnostico.val(str);
+    var v_diagnostico = $('[name="diagnostico"]'), str = '', lista = Session.get('diagnosticos');
+    str = v_diagnostico.val();
+    if(str && str.length > 0)
+      str += '\n';
+    if(lista){
+      lista.forEach(function(cie10){
+        str +=  cie10.dec10 + '\n';
+        console.log(cie10.id10);
+      });
+      v_diagnostico.val(str);
+    }
     Session.set('isSearchCIE10', false);
+  },
+  'click #btnClear': function(e){
+    Session.set('diagnosticos', undefined);
+    $('input[type=checkbox]').each(function(i, cie10){cie10.checked = false;})
   }
 });

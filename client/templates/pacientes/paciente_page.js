@@ -34,7 +34,6 @@ Template.pacientePage.helpers({
     return foto[0];
   },
   urlFoto: function() {
-    console.log(this);
     var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
     foto = foto[0];
     if(foto)
