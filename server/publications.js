@@ -25,3 +25,7 @@ Meteor.publish('imagenes', function(pacienteId) {
 Meteor.publish('cie10', function(options) {
   return Cie10.find({}, options);
 });
+
+Meteor.publish('tipos', function() {
+  return Tipos.find({situacion: SITUACION_ACTIVO});
+});

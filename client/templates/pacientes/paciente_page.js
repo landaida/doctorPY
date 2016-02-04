@@ -4,7 +4,7 @@ Template.pacientePage.onCreated(function () {
   console.log('create pacientePage');
   this.recetas=new ReactiveVar();
   this.model = new ReactiveVar();
-  this.model.set({medicamento:'', dosis:'', frecuencia:'', duracion:''});
+  this.model.set({medicamento:'', unicaDosis: false, dosis:'', frecuencia:'', duracion:''});
   this.recetas.set([]);
 
   var recetas = this.recetas.get();
@@ -43,9 +43,10 @@ Template.pacientePage.helpers({
     }
   },
   tituloPage: function(){
-    //setTimeout(function(){
-      return Session.get('tituloPage') ? Session.get('tituloPage') : 'Datos de la consulta';
-    //}, 50);
+    var retorno = ' '+Session.get('tituloPage') ? Session.get('tituloPage') : 'Datos de la consulta' ;
+    if(Meteor.Device.isDesktop())
+      retorno = '';
+    return retorno;
   }
 });
 
@@ -59,7 +60,7 @@ Template.pacientePage.events({
   'click #btnCancelar': function(e, template){
       Router.go('pacienteList');
    },
-   'submit form': savePaciente,
+  //'submit form': savePaciente,
    'click .profile-image': function(event, template) {
      $('#file-up').click();
    },

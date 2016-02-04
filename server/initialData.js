@@ -16,4 +16,21 @@ Meteor.startup(function() {
       console.log('Fin de insercion CIE10', new Date);
     });
   }
+
+  if (Tipos.find().count() === 0) {
+    //Tipos de dosis
+    Tipos.insert({descripcion:'cc', tipo: TIPOS_DOSIS, situacion: SITUACION_ACTIVO, userId: null, author: null, submitted: new Date()});
+    Tipos.insert({descripcion:'mg', tipo: TIPOS_DOSIS, situacion: SITUACION_ACTIVO, userId: null, author: null, submitted: new Date()});
+
+    //Tipos de frecuencia
+    Tipos.insert({descripcion:'dia', tipo: TIPOS_FRECUENCIA, situacion: SITUACION_ACTIVO, userId: null, author: null, submitted: new Date()});
+    Tipos.insert({descripcion:'hora', tipo: TIPOS_FRECUENCIA, situacion: SITUACION_ACTIVO, userId: null, author: null, submitted: new Date()});
+
+    //Tipos de duracion
+    Tipos.insert({descripcion:'dia', tipo: TIPOS_DURACION, situacion: SITUACION_ACTIVO, userId: null, author: null, submitted: new Date()});
+    Tipos.insert({descripcion:'semana', tipo: TIPOS_DURACION, situacion: SITUACION_ACTIVO, userId: null, author: null, submitted: new Date()});
+    Tipos.insert({descripcion:'mes', tipo: TIPOS_DURACION, situacion: SITUACION_ACTIVO, userId: null, author: null, submitted: new Date()});
+
+
+  }
 });

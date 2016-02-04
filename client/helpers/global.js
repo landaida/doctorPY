@@ -67,6 +67,10 @@ var helpers = {
   isDesktop: function () {
     return Meteor.Device.isDesktop();
   },
+  equals: function (a, b) {
+    console.log(a, b, a === b)
+    return a === b;
+  },
 };
 
 _.each(helpers, function(value, key){

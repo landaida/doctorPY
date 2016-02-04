@@ -1,9 +1,10 @@
 <template name="pacienteSubmit">
   <form id="formPacienteSubmit" class="consulta-form form">
-    <hr>
-    <hr>
-    <div class="row">
-      <div class="col-xs-12 col-md-12 col-lg-12" hidden="{{isEditing}}">
+    {{> buttonsSave}}
+    <!-- <hr> -->
+    <!-- <hr> -->
+    <div class="row" hidden="{{isEditing}}">
+      <div class="col-xs-12 col-md-12 col-lg-12" >
         <div class="form-group">
           <div class="pull-right">
             <a class="dropdown-toggle profile-image" data-toggle="dropdown">
