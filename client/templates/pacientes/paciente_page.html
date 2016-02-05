@@ -48,8 +48,9 @@
         {{> pacienteSubmit}}
       </div>
       <div id="historial" class="tab-pane fade">
+        <hr/>
         <ul class="comments">
-          {{#each consultas}} {{> consultaItem}} {{/each}}
+          {{> historiaClinica}}
         </ul>
       </div>
       <div id="archivos" class="tab-pane fade">

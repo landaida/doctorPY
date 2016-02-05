@@ -88,19 +88,18 @@
                 <div class="input-group">
                   <input type="text" id="medicamento{{@index}}" name="medicamento{{@index}}" class="form-control" value="{{medicamento}}" required="true" />
                   <span class="input-group-addon">
-                    <label><input type="checkbox" checked="{{unicaDosis}}" aria-label="..."> Única dosis</label>
+                    <label><input id="unicaDosis{{@index}}" name="unicaDosis{{@index}}" type="checkbox" checked="{{unicaDosis}}" aria-label="..."> Única vez</label>
                   </span>
                 </div>
-                <span class="help-block">{{errorMessage 'medicamento' @index}}</span>
               </div>
             </div>
             <div class="col-xs-6 col-md-6 col-lg-2">
               <div class="form-group {{errorClass 'dosis' @index}}">
                 <label class="control-label">Dosis</label>
                 <div class="input-group">
-                  <input type="number" id="dosis{{@index}}" name="dosis{{@index}}" placeholder="" class="form-control" value="{{dosis}}" required="true" disabled="{{isOnlyOneDosis}}" />
+                  <input type="number" id="dosis{{@index}}" name="dosis{{@index}}" placeholder="" class="form-control" value="{{dosis}}" required="true" />
                   <span class="input-group-addon">
-                    <select class="" id="typeDosis" name="typeDosis" style="border: none; background-color: transparent;"  disabled="{{isOnlyOneDosis}}">
+                    <select class="" id="dosisTipo{{@index}}" name="dosisTipo{{@index}}" style="border: none; background-color: transparent;">
                       {{#each tiposDosis}}
                           <option value="{{_id}}" > {{descripcion}} </option>
                       {{/each}}
@@ -108,7 +107,6 @@
                     </select>
                   </span>
                 </div>
-                <span class="help-block">{{errorMessage 'dosis' @index}}</span>
               </div>
             </div>
             <div class="col-xs-6 col-md-6 col-lg-2">
@@ -117,7 +115,7 @@
                 <div class="input-group">
                   <input type="number" id="frecuencia{{@index}}" name="frecuencia{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis}}" />
                   <span class="input-group-addon">
-                    <select class="" id="typeFrecuencia" name="typeFrecuencia" style="border: none; background-color: transparent;" disabled="{{isOnlyOneDosis}}">
+                    <select class="" id="frecuenciaTipo{{@index}}" name="frecuenciaTipo{{@index}}" style="border: none; background-color: transparent;" disabled="{{isOnlyOneDosis}}">
                       {{#each tiposFrecuencia}}
                           <option value="{{_id}}" > {{descripcion}} </option>
                       {{/each}}
@@ -125,7 +123,6 @@
                     </select>
                   </span>
                 </div>
-                <span class="help-block">{{errorMessage 'frecuencia' @index}}</span>
               </div>
             </div>
             <div class="col-xs-6 col-md-6 col-lg-2">
@@ -134,7 +131,7 @@
                 <div class="input-group">
                   <input type="number" id="duracion{{@index}}" name="duracion{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis}}" />
                   <span class="input-group-addon">
-                    <select class="" id="typeDuracion" name="typeDuracion" style="border: none; background-color: transparent;"  disabled="{{isOnlyOneDosis}}">
+                    <select class="" id="duracionTipo{{@index}}" name="duracionTipo{{@index}}" style="border: none; background-color: transparent;"  disabled="{{isOnlyOneDosis}}">
                       {{#each tiposDuracion}}
                           <option value="{{_id}}" > {{descripcion}} </option>
                       {{/each}}
@@ -142,7 +139,11 @@
                     </select>
                   </span>
                 </div>
-                <span class="help-block">{{errorMessage 'duracion' @index}}</span>
+              </div>
+            </div>
+            <div class="form-group  {{errorClass 'recetas'}}">
+              <div class="controls">
+                <span class="help-block">{{errorMessage 'recetas' @index}}</span>
               </div>
             </div>
             {{/each}}
@@ -163,7 +164,7 @@
             <h4 class="modal-title">Agregue un nuevo valor</h4>
           </div>
           <div class="modal-body">
-            <input type="text" id="otherText" name="otherText" class="form-control"/>
+            <input type="text" id="otherText" name="otherText" class="form-control" />
           </div>
           <div class="modal-footer">
             <button type="button" id="btnAddNewTipo" class="btn btn-default" data-dismiss="modal">Guardar</button>

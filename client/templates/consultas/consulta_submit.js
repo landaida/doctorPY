@@ -1,7 +1,7 @@
 Template.consultaSubmit.onCreated(function() {
   Session.set('consultaSubmitErrors', {});
   Session.set('isSearchCIE10', false);
-  console.log('create consultaSubmit');
+  Session.set('isOnlyOneDosis', false);
 });
 
 Template.consultaSubmit.helpers({
@@ -78,7 +78,6 @@ Template.consultaSubmit.events({
     t.view.parentView.parentView._templateInstance.recetas.set(recetas)
   },
   'submit form': function(e, template) {
-    console.log('consulta submit', this, template);
     e.preventDefault();
 
     ///////////////////////////////////
@@ -95,39 +94,59 @@ Template.consultaSubmit.events({
     var errors = validateCampos(consulta);
     if (errors.length > 0)
       return Session.set('consultaSubmitErrors', errors);
-    debugger
     var recetas = template.view.parentView.parentView._templateInstance.recetas.get(),
-      msg = "Por favor complete el campo.";
+      msg = "Por favor complete: ", msgCuerpo = '';
 
     if (recetas.length > 0) {
       errors = {}, errors.length = 0;
       var a_recetas = [];
       recetas.forEach(function(item, i) {
         item.medicamento = $(e.target).find('[name=medicamento' + i + ']').val();
+        item.unicaDosis = $(e.target).find('[name=unicaDosis' + i + ']').prop("checked");
         item.dosis = $(e.target).find('[name=dosis' + i + ']').val();
+        item.dosisTipo = $(e.target).find('[name=dosisTipo' + i + ']').val();
         item.frecuencia = $(e.target).find('[name=frecuencia' + i + ']').val();
+        item.frecuenciaTipo = $(e.target).find('[name=frecuenciaTipo' + i + ']').val();
         item.duracion = $(e.target).find('[name=duracion' + i + ']').val();
+        item.duracionTipo = $(e.target).find('[name=duracionTipo' + i + ']').val();
 
         if (!item.medicamento) {
-          errors['medicamento' + i] = msg;
-          errors.length++;
+          msgCuerpo += msgCuerpo.length == 0 ? 'Medicamento' : ' ,Medicamento';
         }
         if (!item.dosis) {
-          errors['dosis' + i] = msg;
-          errors.length++;
+          msgCuerpo += msgCuerpo.length == 0 ? 'Dosis' : ' ,Dosis';
         }
-        if (!item.frecuencia) {
-          errors['frecuencia' + i] = msg;
-          errors.length++;
+        if (item.dosisTipo == 'otros') {
+          msgCuerpo += msgCuerpo.length == 0 ? 'Tipo de Dosis' : ' ,Tipo de Dosis';
         }
-        if (!item.duracion) {
-          errors['duracion' + i] = msg;
+
+        if(!item.unicaDosis){
+          if (!item.frecuencia) {
+            msgCuerpo += msgCuerpo.length == 0 ? 'Frecuencia' : ' ,Frecuencia';
+          }
+          if (item.frecuenciaTipo == 'otros') {
+            msgCuerpo += msgCuerpo.length == 0 ? 'Tipo de Frecuencia' : ' ,Tipo de Frecuencia';
+          }
+          if (!item.duracion) {
+            msgCuerpo += msgCuerpo.length == 0 ? 'Duración' : ' ,Duración';
+          }
+          if (item.duracionTipo == 'otros') {
+            msgCuerpo += msgCuerpo.length == 0 ? 'Tipo de Duracion' : ' ,Tipo de Duracion';
+          }
+        }
+        if(msgCuerpo.length > 0){
+          errors['recetas' + i] = msg + msgCuerpo;
           errors.length++;
         }
         a_recetas.push({
           medicamento: item.medicamento,
-          frecuencia: item.frecuencia,
-          duracion: item.duracion
+          unicaDosis: item.unicaDosis ? 'S' : 'N',
+          dosis: item.dosis,
+          dosisTipo: item.dosisTipo,
+          frecuencia: item.unicaDosis ? null : item.frecuencia,
+          frecuenciaTipo: item.unicaDosis ? null : item.frecuenciaTipo,
+          duracion: item.unicaDosis ? null : item.duracion,
+          duracionTipo: item.unicaDosis ? null : item.duracionTipo
         });
       });
       if (errors.length > 0)
@@ -135,6 +154,25 @@ Template.consultaSubmit.events({
       consulta.recetas = a_recetas;
       ///////////////////////////////////
       //FIN VALIDA CAMPOS DE LA CONSULTA
+      ///////////////////////////////////
+
+
+      ///////////////////////////////////
+      //INICIO INSERT OR UPDATE CONSULTAS
+      ///////////////////////////////////
+
+      Meteor.call('consultaInsert', consulta, function(error, consultaId) {
+
+        if (error){
+          throwError(error.reason);
+        } else {
+
+        }
+        Router.go('pacienteList');
+      });
+
+      ///////////////////////////////////
+      //FIN INSERT OR UPDATE CONSULTAS
       ///////////////////////////////////
     }
   },
@@ -173,22 +211,15 @@ Template.consultaSubmit.events({
   'change input[type=checkbox]': function(e) {
     Session.set('isOnlyOneDosis', e.target.checked);
   },
-  'change #typeDosis': function(e) {
-    Session.set('tipo', TIPOS_DOSIS);
-    if (e.target.value == "otros")
-      $('#myModal').modal('toggle');
-    else
-      $('#myModal').modal('hide');
-  },
-  'change #typeFrecuencia': function(e) {
-    Session.set('tipo', TIPOS_FRECUENCIA);
-    if (e.target.value == "otros")
-      $('#myModal').modal('toggle');
-    else
-      $('#myModal').modal('hide');
-  },
-  'change #typeDuracion': function(e) {
-    Session.set('tipo', TIPOS_DURACION);
+  'change select': function(e) {
+    Session.set('element', e.target.id);
+    if(e.target.id.indexOf('frec') != -1)
+      Session.set('tipo', TIPOS_FRECUENCIA);
+    else if(e.target.id.indexOf('dura') != -1)
+      Session.set('tipo', TIPOS_DURACION);
+    else if(e.target.id.indexOf('dosi') != -1)
+      Session.set('tipo', TIPOS_DOSIS);
+
     if (e.target.value == "otros")
       $('#myModal').modal('toggle');
     else
@@ -202,14 +233,7 @@ Template.consultaSubmit.events({
         if (error){
           throwError(error.reason);
         } else {
-          var element;
-          if(Session.get('tipo') == TIPOS_DOSIS)
-            element = $('#typeDosis');
-          else if(Session.get('tipo') == TIPOS_FRECUENCIA)
-            element = $('#typeFrecuencia');
-          else if(Session.get('tipo') == TIPOS_DURACION)
-            element = $('#typeDuracion');
-
+          var element = $('#'+Session.get('element'));
           element.append('<option value="' + id + '" selected="selected">' + other + '</option>');
         }
       });

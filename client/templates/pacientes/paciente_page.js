@@ -1,10 +1,9 @@
 Template.pacientePage.onCreated(function () {
   this.fotoFile=new ReactiveVar();
   Session.set('editing', true);
-  console.log('create pacientePage');
   this.recetas=new ReactiveVar();
   this.model = new ReactiveVar();
-  this.model.set({medicamento:'', unicaDosis: false, dosis:'', frecuencia:'', duracion:''});
+  this.model.set({medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''});
   this.recetas.set([]);
 
   var recetas = this.recetas.get();
@@ -25,10 +24,7 @@ Template.pacientePage.onRendered(function () {
 // }, 50);
 });
 
-Template.pacientePage.helpers({
-  consultas: function() {
-    return Consultas.find({pacienteId: this._id});
-  },
+Template.pacientePage.helpers({  
   foto: function() {
     var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
     return foto[0];
