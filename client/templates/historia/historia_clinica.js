@@ -1,7 +1,15 @@
+Template.historiaClinica.onCreated(function() {
+  var consultas = Consultas.find({pacienteId: this.data._id}, {sort: {submitted: -1}, limit: 2}).fetch();
+  Session.set('consultas', consultas);
+  if(consultas.length > 0){
+    Session.set('first', consultas[0].submitted);
+    Session.set('last', consultas.slice(-1)[0].submitted);
+  }
+});
+
 Template.historiaClinica.helpers({
   consultas: function(){
-    var t = Template.instance();
-    return t.view._templateInstance.data.consultas;
+    return Session.get('consultas');
   },
   getTableClass: function(index) {
     var retorno = 'success';
@@ -44,9 +52,25 @@ Template.historiaClinica.helpers({
   }
 })
 
-Template.pacientePage.events({
+Template.historiaClinica.events({
   'click .listaConsultas': function (e) {
     e.preventDefault();
     Session.set('currentConsulta', this);
+  },
+  'click .listaConsultasNext': function (e) {
+    e.preventDefault();
+    var t = Template.instance().view.template;
+    var last = Session.get('last');
+    var consultas = Consultas.find({pacienteId: this._id, submitted: {$lt: last}}, {limit: 2}).fetch();
+    consultas = t.__helpers.get('consultas').call().concat(consultas);
+    Session.set('consultas', consultas);
+    console.log(consultas);
+  },
+  'click .listaConsultasBack': function (e) {
+    e.preventDefault();
+    // var consultas = Session.get('consultas');
+    // consultas = consultas.concat(Consultas.find({pacienteId: this._id}, {sort: {submitted: -1}, limit: limit ? limit : 2}).fetch());
+    // //Session.set('consultas', consultas);
+    // console.log(Session.get('consultas'));
   }
 })

@@ -48,7 +48,6 @@ SearchSource.defineSource('cie10', function(searchText) {
 
 
   if (!searchText) searchText = 'Colera';
-  console.log('datasource search', searchText);
   var regExp = buildRegExp(searchText);
   var selector = {
     $or: [{
