@@ -3,16 +3,18 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <nav>
         <ul class="pagination">
-          <li class="listaConsultasBack"><a href="#" aria-label="Anterior"><span aria-hidden="true">«</span></a></li>
           {{#each consultas}}
             <li class="listaConsultas"><a href="#">{{@index}}</a></li>
           {{/each}}
-          <li class="listaConsultasNext"><a href="#" aria-label="Siguiente"><span aria-hidden="true">»</span></a></li>
+          <li class="listaConsultasNext {{isMore}}"><a href="#" aria-label="Siguiente"><span aria-hidden="true">»</span></a></li>
         </ul>
       </nav>
       <div class="panel panel-info">
         <div class="panel-heading">
           Detalles
+          <div class="pull-right">
+            {{dateToText submitted}}
+          </div>
         </div>
         <div class="panel-body">
 

@@ -24,7 +24,7 @@ Template.pacientePage.onRendered(function () {
 // }, 50);
 });
 
-Template.pacientePage.helpers({  
+Template.pacientePage.helpers({
   foto: function() {
     var foto = Imagenes.find({"metadata.pacienteId": this._id}).fetch();
     return foto[0];
@@ -64,7 +64,6 @@ Template.pacientePage.events({
 
    "keyup #search-cie10": _.throttle(function(e) {
      var text = $(e.target).val().trim();
-     console.log(text);
      Cie10Search.search(text);
    }, 500)
 });

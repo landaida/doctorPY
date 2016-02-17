@@ -1,10 +1,9 @@
 Template.historiaClinica.onCreated(function() {
-  var consultas = Consultas.find({pacienteId: this.data._id}, {sort: {submitted: -1}, limit: 2}).fetch();
+  Session.set('isMore', true);
+  var consultas = Consultas.find({pacienteId: this.data._id}, {sort: {id: -1}, limit: 2}).fetch();
   Session.set('consultas', consultas);
-  if(consultas.length > 0){
-    Session.set('first', consultas[0].submitted);
-    Session.set('last', consultas.slice(-1)[0].submitted);
-  }
+  if(consultas.length > 0)
+    Session.set('last', consultas.slice(-1)[0].id);
 });
 
 Template.historiaClinica.helpers({
@@ -49,6 +48,9 @@ Template.historiaClinica.helpers({
   },
   unicaDosis: function(){
     return this.unicaDosis == 'S';
+  },
+  isMore: function(){
+    return Session.get('isMore') == true ? '' : 'disabled';
   }
 })
 
@@ -61,16 +63,15 @@ Template.historiaClinica.events({
     e.preventDefault();
     var t = Template.instance().view.template;
     var last = Session.get('last');
-    var consultas = Consultas.find({pacienteId: this._id, submitted: {$lt: last}}, {limit: 2}).fetch();
-    consultas = t.__helpers.get('consultas').call().concat(consultas);
-    Session.set('consultas', consultas);
-    console.log(consultas);
-  },
-  'click .listaConsultasBack': function (e) {
-    e.preventDefault();
-    // var consultas = Session.get('consultas');
-    // consultas = consultas.concat(Consultas.find({pacienteId: this._id}, {sort: {submitted: -1}, limit: limit ? limit : 2}).fetch());
-    // //Session.set('consultas', consultas);
-    // console.log(Session.get('consultas'));
+    var consultas = Consultas.find({pacienteId: this._id, id: {$lt: last}}, {limit: 2}).fetch();
+    if(consultas.length > 0){
+      var last = consultas.slice(-1)[0].id;
+      Session.set('last', last);
+      consultas = t.__helpers.get('consultas').call().concat(consultas);
+      Session.set('consultas', consultas);
+      var first_id = Consultas.findOne({},{sort:{id:1}}).id;
+      if(first_id == last)
+        Session.set('isMore', false);
+    }
   }
 })
