@@ -11,9 +11,14 @@ var containsAny = function(str, substrings) {
 var arrayMonths = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'setiembre', 'octubre', 'noviembre', 'diciembre']
 
 var helpers = {
-  dateToText: function(date) {
-    if ( containsAny(date, arrayMonths) == '') {
-        return moment(date, 'dd/mm/YYYY')//.format('LLL');
+  dateToText: function(date, onlyDate) {
+    if(onlyDate){
+      if(this.submitted)
+        return moment(this.submitted).format('L')
+      else
+        return moment(date, 'dd/mm/YYYY')
+    }else if ( containsAny(date, arrayMonths) == '') {
+      return moment(date, 'dd/mm/YYYY')//.format('LLL');
     }
     return date;
   },

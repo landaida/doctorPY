@@ -1,54 +1,86 @@
 <template name="historiaClinica">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          Seleccione una consulta de la lista
-          <div class="pull-right">
-          <a data-toggle="collapse" href="#collapse1">
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-          </a>
-        </div>
-        </div>
-        <div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body">
-            <table class="table table-hover" style="margin-top: 2px; margin-bottom: -38px;">
-              <!-- <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Diagnóstico</th>
-                  <th>Dr.</th>
-                </tr>
-              </thead> -->
-              <tbody>
-                {{#each consultas}}
-                <tr class="{{getTableClass @index}}" data-mongoId="{{this}}">
-                  <td class="{{getTableClass @index}}">
-                    {{dateToText submitted}}
-                  </td>
-                  <td class="{{getTableClass @index}}">
-                    {{diagnostico}}
-                  </td>
-                  <td class="{{getTableClass @index}}">
-                    {{author}}
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-        </div>
-        </div>
-      </div>
+      <nav>
+        <ul class="pagination">
+          <li><a href="#" aria-label="Anterior"><span aria-hidden="true">«</span></a></li>
+          {{#each consultas}}
+            <li class="listaConsultas"><a href="#">{{@index}}</a></li>
+          {{/each}}
+          <li><a href="#" aria-label="Siguiente"><span aria-hidden="true">»</span></a></li>
+        </ul>
+      </nav>
       <div class="panel panel-info">
         <div class="panel-heading">
           Detalles
         </div>
         <div class="panel-body">
-          <span>{{currentConsulta._id}}</span>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Motivo de la consulta
+            </div>
+            <div class="panel-body">
+              <span class="help-block">{{currentConsulta.motivo}}</span>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Diagnóstico
+            </div>
+            <div class="panel-body">
+              <span class="help-block">{{currentConsulta.diagnostico}}</span>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Tratamiento
+            </div>
+            <div class="panel-body">
+              <span class="help-block">{{currentConsulta.tratamiento}}</span>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Receta
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                {{#each currentConsulta.recetas}}
+                <div class="col-xs-12 col-md-12 col-lg-6">
+                  <div class="form-group">
+                    <label class="control-label">Medicamento</label>
+                    <span class="form-control">{{medicamento}}</span>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-2">
+                  <div class="form-group">
+                    <label class="control-label">Dosis</label>
+                    <span class="form-control">{{dosis}} {{getDescription 'DO'}}</span>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-2" hidden="{{unicaDosis}}">
+                  <div class="form-group">
+                    <label class="control-label">Frecuencia</label>
+                    <span class="form-control">{{frecuencia}} {{getDescription 'FR'}}</span>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-2" hidden="{{unicaDosis}}">
+                  <div class="form-group">
+                    <label class="control-label">Duración</label>
+                    <span class="form-control">{{duracion}} {{getDescription 'DU'}}</span>
+                  </div>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-
   </div>
-
 </template>
