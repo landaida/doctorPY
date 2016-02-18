@@ -63,6 +63,24 @@ Template.consultaSubmit.helpers({
     var t = Template.instance();
     return t.view.parentView.parentView._templateInstance.data.tiposDuracion;
   },
+  settings: function() {
+    return {
+      position: "top",
+      limit: 10,
+      rules: [{
+        token: '',
+        collection: Medicamentos,
+        field: "descripcion",
+        template: Template.autocompleteMedicamentos
+      }]
+    };
+  },
+  getMedicamentoId: function() {
+    return 'medicamento'+Session.get('index');
+  },
+  setIndex: function(index){
+    Session.set('index', index);
+  }
 });
 
 Template.consultaSubmit.events({
@@ -95,7 +113,8 @@ Template.consultaSubmit.events({
     if (errors.length > 0)
       return Session.set('consultaSubmitErrors', errors);
     var recetas = template.view.parentView.parentView._templateInstance.recetas.get(),
-      msg = "Por favor complete: ", msgCuerpo = '';
+      msg = "Por favor complete: ",
+      msgCuerpo = '';
 
     if (recetas.length > 0) {
       errors = {}, errors.length = 0;
@@ -120,7 +139,7 @@ Template.consultaSubmit.events({
           msgCuerpo += msgCuerpo.length == 0 ? 'Tipo de Dosis' : ' ,Tipo de Dosis';
         }
 
-        if(!item.unicaDosis){
+        if (!item.unicaDosis) {
           if (!item.frecuencia) {
             msgCuerpo += msgCuerpo.length == 0 ? 'Frecuencia' : ' ,Frecuencia';
           }
@@ -134,7 +153,7 @@ Template.consultaSubmit.events({
             msgCuerpo += msgCuerpo.length == 0 ? 'Tipo de Duracion' : ' ,Tipo de Duracion';
           }
         }
-        if(msgCuerpo.length > 0){
+        if (msgCuerpo.length > 0) {
           errors['recetas' + i] = msg + msgCuerpo;
           errors.length++;
         }
@@ -163,7 +182,7 @@ Template.consultaSubmit.events({
 
       Meteor.call('consultaInsert', consulta, function(error, consultaId) {
 
-        if (error){
+        if (error) {
           throwError(error.reason);
         } else {
 
@@ -213,11 +232,11 @@ Template.consultaSubmit.events({
   },
   'change select': function(e) {
     Session.set('element', e.target.id);
-    if(e.target.id.indexOf('frec') != -1)
+    if (e.target.id.indexOf('frec') != -1)
       Session.set('tipo', TIPOS_FRECUENCIA);
-    else if(e.target.id.indexOf('dura') != -1)
+    else if (e.target.id.indexOf('dura') != -1)
       Session.set('tipo', TIPOS_DURACION);
-    else if(e.target.id.indexOf('dosi') != -1)
+    else if (e.target.id.indexOf('dosi') != -1)
       Session.set('tipo', TIPOS_DOSIS);
 
     if (e.target.value == "otros")
@@ -227,13 +246,16 @@ Template.consultaSubmit.events({
   },
   'click #btnAddNewTipo': function(e) {
     var other = $('#otherText').val();
-    var tipo = {descripcion: other, tipo: Session.get('tipo')};
+    var tipo = {
+      descripcion: other,
+      tipo: Session.get('tipo')
+    };
     if (other) {
       Meteor.call('tipoInsert', tipo, function(error, id) {
-        if (error){
+        if (error) {
           throwError(error.reason);
         } else {
-          var element = $('#'+Session.get('element'));
+          var element = $('#' + Session.get('element'));
           element.append('<option value="' + id + '" selected="selected">' + other + '</option>');
         }
       });

@@ -86,7 +86,8 @@
               <div class="form-group {{errorClass 'medicamento' @index}}">
                 <label class="control-label">Medicamento</label>
                 <div class="input-group">
-                  <input type="text" id="medicamento{{@index}}" name="medicamento{{@index}}" class="form-control" value="{{medicamento}}" required="true" />
+                  {{setIndex @index}}
+                  {{> inputAutocomplete settings=settings id=getMedicamentoId name=getMedicamentoId class="form-control" }}
                   <span class="input-group-addon">
                     <label><input id="unicaDosis{{@index}}" name="unicaDosis{{@index}}" type="checkbox" checked="{{unicaDosis}}" aria-label="..."> Única vez</label>
                   </span>
@@ -174,4 +175,8 @@
     </div>
 
   </form>
+</template>
+
+<template name="autocompleteMedicamentos">
+    <span class="label">{{descripcion}}</span>
 </template>
