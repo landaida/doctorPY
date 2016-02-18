@@ -1,14 +1,13 @@
 Template.historiaClinica.onCreated(function() {
   Session.set('isMore', true);
-  var consultas = Consultas.find({pacienteId: this.data._id}, {sort: {id: -1}, limit: 2}).fetch();
-  Session.set('consultas', consultas);
-  if(consultas.length > 0)
-    Session.set('last', consultas.slice(-1)[0].id);
+});
+
+Template.historiaClinica.onRendered(function(){
 });
 
 Template.historiaClinica.helpers({
   consultas: function(){
-    return Session.get('consultas');
+    return  Session.get('consultas');
   },
   getTableClass: function(index) {
     var retorno = 'success';
