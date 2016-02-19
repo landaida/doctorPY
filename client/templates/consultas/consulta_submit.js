@@ -52,16 +52,15 @@ Template.consultaSubmit.helpers({
     return Session.get('isOnlyOneDosis');
   },
   tiposFrecuencia: function() {
-    var t = Template.instance();
-    return t.view.parentView.parentView._templateInstance.data.tiposFrecuencia;
+    //var t = Template.instance();
+    //return t.view.parentView.parentView._templateInstance.data.tiposFrecuencia;
+    return Session.get('tiposFrecuencia');
   },
   tiposDosis: function() {
-    var t = Template.instance();
-    return t.view.parentView.parentView._templateInstance.data.tiposDosis;
+    return Session.get('tiposDosis');
   },
   tiposDuracion: function() {
-    var t = Template.instance();
-    return t.view.parentView.parentView._templateInstance.data.tiposDuracion;
+    return Session.get('tiposDuracion');
   },
   settings: function() {
     return {
