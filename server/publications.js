@@ -29,3 +29,7 @@ Meteor.publish('cie10', function(options) {
 Meteor.publish('tipos', function() {
   return Tipos.find({situacion: SITUACION_ACTIVO});
 });
+
+Meteor.publish('medicamentos', function() {
+  return Medicamentos.find({});
+});

@@ -70,6 +70,7 @@ Template.consultaSubmit.helpers({
         token: '',
         collection: Medicamentos,
         field: "descripcion",
+        matchAll: true,
         template: Template.autocompleteMedicamentos
       }]
     };

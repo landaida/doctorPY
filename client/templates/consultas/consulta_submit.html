@@ -87,7 +87,7 @@
                 <label class="control-label">Medicamento</label>
                 <div class="input-group">
                   {{setIndex @index}}
-                  {{> inputAutocomplete settings=settings id=getMedicamentoId name=getMedicamentoId class="form-control" }}
+                  {{> inputAutocomplete settings=settings id=getMedicamentoId name=getMedicamentoId class="form-control" autocomplete="off"}}
                   <span class="input-group-addon">
                     <label><input id="unicaDosis{{@index}}" name="unicaDosis{{@index}}" type="checkbox" checked="{{unicaDosis}}" aria-label="..."> Única vez</label>
                   </span>
@@ -178,5 +178,5 @@
 </template>
 
 <template name="autocompleteMedicamentos">
-    <span class="label">{{descripcion}}</span>
+    <span class="">{{descripcion}}</span>
 </template>
