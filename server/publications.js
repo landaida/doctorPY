@@ -33,3 +33,9 @@ Meteor.publish('tipos', function() {
 Meteor.publish('medicamentos', function() {
   return Medicamentos.find({});
 });
+
+Meteor.publish('archivos', function(pacienteId) {
+  check(pacienteId, String);
+  var retorno = Archivos.find({});
+  return retorno;
+});
