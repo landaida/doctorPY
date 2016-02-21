@@ -94,6 +94,9 @@ Template.consultaSubmit.helpers({
   mosteller: function(){
     return Session.get('mosteller');
   },
+  icc: function(){
+    return Session.get('icc');
+  },
 });
 
 Template.consultaSubmit.events({
@@ -282,5 +285,13 @@ Template.consultaSubmit.events({
   'keyup #altura': _.throttle(function(e) {
     var peso = $('#peso').val();
     imc(peso, e.target.value);
-  }, 200)
+  }, 200),
+  'keyup #perimetroCintura': _.throttle(function(e) {
+    var perimetroCadera = $('#perimetroCadera').val();
+    Session.set('icc', e.target.value / perimetroCadera)
+  }, 200),
+  'keyup #perimetroCadera': _.throttle(function(e) {
+    var perimetroCintura = $('#perimetroCintura').val();
+    Session.set('icc', Math.round((perimetroCintura / e.target.value) * 100)/100)
+  }, 200),
 });
