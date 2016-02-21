@@ -50,6 +50,13 @@ Template.historiaClinica.helpers({
   },
   isMore: function(){
     return Session.get('isMore') == true ? '' : 'disabled';
+  },
+  imc: function(){
+    var currentConsulta = Session.get('currentConsulta'), retorno = 0;
+    if(currentConsulta){
+      retorno = imc(currentConsulta.peso, currentConsulta.altura);
+    }
+    return retorno;
   }
 })
 
@@ -57,6 +64,7 @@ Template.historiaClinica.events({
   'click .listaConsultas': function (e) {
     e.preventDefault();
     Session.set('currentConsulta', this);
+    console.log(this);
   },
   'click .listaConsultasNext': function (e) {
     e.preventDefault();

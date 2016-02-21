@@ -2,6 +2,7 @@ Template.consultaSubmit.onCreated(function() {
   Session.set('consultaSubmitErrors', {});
   Session.set('isSearchCIE10', false);
   Session.set('isOnlyOneDosis', false);
+  Session.set('diagnosticos', null);
 });
 
 Template.consultaSubmit.helpers({
@@ -80,7 +81,19 @@ Template.consultaSubmit.helpers({
   },
   setIndex: function(index){
     Session.set('index', index);
-  }
+  },
+  imc: function(){
+    return Session.get('imc');
+  },
+  haycock: function(){
+    return Session.get('haycock');
+  },
+  boyd: function(){
+    return Session.get('boyd');
+  },
+  mosteller: function(){
+    return Session.get('mosteller');
+  },
 });
 
 Template.consultaSubmit.events({
@@ -106,7 +119,9 @@ Template.consultaSubmit.events({
       motivo: $(e.target).find('[name=motivo]').val(),
       diagnostico: $(e.target).find('[name=diagnostico]').val(),
       tratamiento: $(e.target).find('[name=tratamiento]').val(),
-      pacienteId: me._id
+      pacienteId: me._id,
+      peso:parseInt($(e.target).find('[name=peso]').val()),
+      altura:parseInt($(e.target).find('[name=altura]').val())
     };
 
     var errors = validateCampos(consulta);
@@ -215,7 +230,6 @@ Template.consultaSubmit.events({
     if (lista) {
       lista.forEach(function(cie10) {
         str += cie10.dec10.replace('<b>', '').replace('</b>', '') + '\n';
-        console.log(cie10.id10);
       });
       v_diagnostico.val(str);
     }
@@ -260,5 +274,13 @@ Template.consultaSubmit.events({
         }
       });
     }
-  }
+  },
+  'keyup #peso': _.throttle(function(e) {
+    var altura = $('#altura').val();
+    imc(e.target.value, altura);
+  }, 200),
+  'keyup #altura': _.throttle(function(e) {
+    var peso = $('#peso').val();
+    imc(peso, e.target.value);
+  }, 200)
 });
