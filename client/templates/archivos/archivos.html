@@ -15,10 +15,20 @@
 
           Detalles {{dateToText current.metadata.submitted}}
           <div class="pull-right">
-            <a href="#" id="btnNew" class="btn btn-primary btn-sm">Nuevo</a>
+            <div class="btn-group">
+              <a href="#" id="btnRotateLeft" class="btn btn-primary btn-sm">
+                <img src="/img/ic_rotate_left_white_18px.svg" />
+              </a>
+              <a href="#" id="btnRotateRight" class="btn btn-primary btn-sm">
+                <img src="/img/ic_rotate_right_white_18px.svg" />
+              </a>
+            </div>
+            <div class="btn-group" style="margin-left:15px;">
+              <a href="#" id="btnNew" class="btn btn-primary btn-sm">Nuevo</a>
+            </div>
           </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body img-container" >
           <img id="archivo" src="{{foto}}" >
         </div>
       </div>

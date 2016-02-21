@@ -1,20 +1,18 @@
 Template.archivos.onCreated(function() {
   Session.set('isMoreArchivo', true);
-  Session.set('foto', '../img/user_profile_photo.png');
+  Session.set('foto', '');
 });
 
 Template.archivos.onRendered(function(){
   $('#archivo').cropper({
-    aspectRatio: 16 / 9,
-    autoCropArea: 0.65,
-    strict: true,
-    guides: true,
-    highlight: true,
-    dragCrop: true,
-    cropBoxMovable: true,
-    cropBoxResizable: true
+    dragMode:'move',
+    minContainerWidth: '100%',
+    minCanvasWidth: '100%'
   });
-
+  setTimeout(function(){
+    $('#archivo').cropper('clear')
+    $('#archivo').cropper('clear')
+  },50);
 });
 
 Template.archivos.helpers({
@@ -40,16 +38,17 @@ Template.archivos.events({
     if(this){
       var file = new FS.File(this);
       Session.set('foto', file.url());
+      hiddenCrop(file.url());
     }
 
   },
   'click .paginationListNext': function (e) {
     e.preventDefault();
     var t = Template.instance().view.template;
-    var last = Session.get('last');
-    var lista = Archivos.find({"metadata.pacienteId": this._id, "metadata.id": {$lt: last}}, {limit: 2}).fetch();
+    var last = Session.get('lastArchivo');
+    var lista = Archivos.find({"metadata.pacienteId": this._id, "metadata.id": {$lt: last}}, {limit: PAGINATION_ARCHIVO_NEXT, sort:{'metadata.id':-1}}).fetch();
     if(lista.length > 0){
-      var last = lista.slice(-1)[0].id;
+      var last = lista.slice(-1)[0].metadata.id;
       Session.set('lastArchivo', last);
       lista = t.__helpers.get('archivos').call().concat(lista);
       Session.set('archivos', lista);
@@ -68,15 +67,14 @@ Template.archivos.events({
 
     var urlCreator = window.URL || window.webkitURL;
     var imageUrl = urlCreator.createObjectURL(file);
-    $('#archivo').attr('src', imageUrl);
+    hiddenCrop(imageUrl);
     var me = this;
     FS.Utility.eachFile(event, function(file) {
       var attributes = {'file': file, 'pacienteId': me._id}
-
-      var last = Archivos.find({"metadata.pacienteId": attributes.pacienteId},{sort:{"metadata.id":-1}}).fetch();
+      var last = Archivos.find({"metadata.pacienteId": attributes.pacienteId},{sort:{"metadata.id":-1}, limit: PAGINATION_ARCHIVO_NEXT}).fetch();
       var currentId = 0;
       if(last.length > 0)
-        currentId = last.id;
+        currentId = last[0].metadata.id;
       attributes.id = currentId + 1;
 
       var user = Meteor.user();
@@ -96,15 +94,22 @@ Template.archivos.events({
           //var userId = Meteor.userId();
         }
       });
-
-      // Meteor.call('archivoInsert', archivo, function(error, id) {
-      //
-      //   if (error) {
-      //     throwError(error.reason);
-      //   } else {
-      //
-      //   }
-      // });
     });
+  },
+  'click #btnRotateLeft': function(e){
+    e.preventDefault();
+    $('#archivo').cropper('rotate', '-90')
+  },
+  'click #btnRotateRight': function(e){
+    e.preventDefault();
+    $('#archivo').cropper('rotate', '90')
   }
 })
+
+hiddenCrop = function(img){
+  $('#archivo').attr('src', img);
+  $('#archivo').cropper('replace', img)
+  setTimeout(function(){
+    $('#archivo').cropper('clear')
+  },50);
+}

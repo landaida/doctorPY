@@ -33,6 +33,127 @@ html {
 
 
 
+/* Basic */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.browserupgrade {
+  margin: 0;
+  padding: 5px 15px;
+  background-color: #ff851b;
+  color: #fff;
+  text-align: center;
+}
+
+
+/* Header */
+
+.docs-header {
+  margin-bottom: 0;
+}
+
+.navbar-toggle:hover,
+.navbar-toggle:focus {
+  border-color: #0074d9;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #0074d9;
+}
+
+
+/* Jumbotron */
+
+.docs-jumbotron {
+  background-color: #0074d9;
+  color: #fff;
+}
+
+.docs-jumbotron .version {
+  font-size: 14px;
+  color: #fff;
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+
+.docs-carbonads-container {
+  position: relative;
+}
+
+.docs-carbonads {
+  max-width: 350px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.carbon-wrap {
+  overflow: hidden;
+}
+
+.carbon-img {
+  clear: left;
+  float: left;
+  display: block;
+}
+
+.carbon-text,
+.carbon-poweredby {
+  display: block;
+  margin-left: 140px;
+}
+
+.carbon-text,
+.carbon-text:hover,
+.carbon-text:focus {
+  color: #fff;
+  text-decoration: none;
+}
+
+.carbon-poweredby,
+.carbon-poweredby:hover,
+.carbon-poweredby:focus {
+  color: #ddd;
+  text-decoration: none;
+}
+
+@media (min-width: 992px) {
+  .docs-carbonads {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+  }
+}
+
+
+/* Content */
+
+.img-container,
+.img-preview {
+  background-color: #f7f7f7;
+  width: 100%;
+  text-align: center;
+}
+
+.img-container {
+  min-height: 200px;
+  max-height: 516px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .img-container {
+    min-height: 516px;
+  }
+}
+
+.img-container > img {
+  max-width: 100%;
+}
 
 
 

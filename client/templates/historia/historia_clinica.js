@@ -26,15 +26,15 @@ Template.historiaClinica.helpers({
     var lista = [], tipo = '';
     switch(type) {
     case 'DO':
-      lista = t.view._templateInstance.data.tiposDosis;
+      lista = Session.get('tiposDosis');
       tipo = this.dosisTipo;
       break;
     case 'FR':
-      lista = t.view._templateInstance.data.tiposFrecuencia;
+      lista = Session.get('tiposFrecuencia');
       tipo = this.frecuenciaTipo;
       break;
     case 'DU':
-      lista = t.view._templateInstance.data.tiposDuracion;
+      lista = Session.get('tiposDuracion');
       tipo = this.duracionTipo;
       break;
     }
@@ -62,7 +62,7 @@ Template.historiaClinica.events({
     e.preventDefault();
     var t = Template.instance().view.template;
     var last = Session.get('last');
-    var consultas = Consultas.find({pacienteId: this._id, id: {$lt: last}}, {limit: 2}).fetch();
+    var consultas = Consultas.find({pacienteId: this._id, id: {$lt: last}}, {limit: PAGINATION_HISTORIA_NEXT}).fetch();
     if(consultas.length > 0){
       var last = consultas.slice(-1)[0].id;
       Session.set('last', last);
