@@ -89,7 +89,10 @@ Template.pacienteSubmit.helpers({
     if((this.telefono2 && index == 2) || (this.telefono3 && index == 3))
         retorno = '';
     return retorno;
-  }
+  },
+  hiddenIfInserting: function(){
+    return !this._id ? 'hidden' : '';
+  },
 });
 Template.pacienteSubmit.events({
   'submit form': savePaciente,
