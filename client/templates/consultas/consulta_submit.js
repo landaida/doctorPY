@@ -124,19 +124,29 @@ Template.consultaSubmit.events({
       tratamiento: $(e.target).find('[name=tratamiento]').val(),
       pacienteId: me._id,
       peso:parseInt($(e.target).find('[name=peso]').val()),
-      altura:parseInt($(e.target).find('[name=altura]').val())
+      altura:parseInt($(e.target).find('[name=altura]').val()),
+      perimetroCintura:parseInt($(e.target).find('[name=perimetroCintura]').val()),
+      perimetroCadera:parseInt($(e.target).find('[name=perimetroCadera]').val()),
     };
-
-    var errors = validateCampos(consulta);
+    var onlyRequired = _.omit(consulta,'peso', 'altura', 'perimetroCintura', 'perimetroCadera', 'pacienteId');
+    var errors = validateCampos(onlyRequired);
     if (errors.length > 0)
       return Session.set('consultaSubmitErrors', errors);
+
+    //Agrega los cie10 seleccionados
+    var lista = Session.get('diagnosticos'), str = '';
+    lista.forEach(function(cie10) {
+      str += str.length > 0 ? ', ' + cie10.id10 : cie10.id10;
+    });
+    consulta.cie10List = str;
+
     var recetas = template.view.parentView.parentView._templateInstance.recetas.get(),
       msg = "Por favor complete: ",
       msgCuerpo = '';
 
     if (recetas.length > 0) {
       errors = {}, errors.length = 0;
-      var a_recetas = [];
+      var a_recetas = [];debugger
       recetas.forEach(function(item, i) {
         item.medicamento = $(e.target).find('[name=medicamento' + i + ']').val();
         item.unicaDosis = $(e.target).find('[name=unicaDosis' + i + ']').prop("checked");
@@ -294,4 +304,8 @@ Template.consultaSubmit.events({
     var perimetroCintura = $('#perimetroCintura').val();
     Session.set('icc', Math.round((perimetroCintura / e.target.value) * 100)/100)
   }, 200),
+  "autocompleteselect input": function(event, template, doc) {
+
+    console.log("selected ", doc, template);
+  }
 });

@@ -24,13 +24,13 @@ Template.searchResult.helpers({
 
 Template.searchResult.rendered = function() {
   var controller = Router.current();
-  PacientesSearch.search('', {limit: controller.pacientesLimit()});
+  PacientesSearch.search('', {limit: controller.pacientesLimit(), sort: {_id: -1}});
 };
 
 Template.searchBox.events({
   "keyup #search-box": _.throttle(function(e) {
     var controller = Router.current();
     var text = $(e.target).val().trim();
-    PacientesSearch.search(text, {limit: controller.pacientesLimit()});
+    PacientesSearch.search(text, {limit: controller.pacientesLimit(), sort: {_id: -1}});
   }, 200)
 });
