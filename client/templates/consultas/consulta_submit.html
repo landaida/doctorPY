@@ -1,5 +1,5 @@
 <template name="consultaSubmit">
-  <form name="consulta" class="consulta-form form">
+  <form name="consulta" class="consulta-form form no-printable">
     {{> buttonsSave}}
     <hr>
     <div class="form-group {{errorClass 'motivo'}}">
@@ -193,9 +193,13 @@
           <a id="btnAdd" class="btn btn-info btn-xs">
             <img src="/img/ic_add_white_18px.svg" />
           </a>
+          <a id="btnPrint" class="btn btn-info btn-xs">
+            <img src="/img/ic_print_white_18px.svg" />
+          </a>
         </div>
       </div>
       <div class="panel-body">
+
         <!-- <div style="overflow-y: auto; overflow-x: hidden; height:220px;"> -->
         <div class="row">
           <div class="form-group">
@@ -292,8 +296,15 @@
     </div>
 
   </form>
+  {{> recetaTemplate}}
 </template>
 
 <template name="autocompleteMedicamentos">
   <span class="">{{descripcion}}</span>
+</template>
+
+<template name="recetaTemplate">
+  <div class="printable">
+    texto texto
+  </div>
 </template>

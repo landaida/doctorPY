@@ -6,7 +6,7 @@
     <!-- <div class="pull-right">
         <h2>{{{nombre}}}</h2>
       </div> -->
-    <ul class="nav nav-pills" style="margin-top: 50px;">
+    <ul class="nav nav-pills no-printable" style="margin-top: 50px;">
       <li class="active listanav" title="Ficha clínica">
         <a data-toggle="pill" href="#consultar" class="tabPrincipal" title="Ficha clínica">
           <span class="glyphicon glyphicon-list-alt"></span>{{renderImageAndText 'Ficha clínica'}}</a>
@@ -26,12 +26,12 @@
     </ul>
 
     <div class="tab-content">
-      <div class="row">
+      <div class="row" no-printable>
         <div class="col-xs-6 col-md-6 col-lg-6">
           <h5>{{tituloPage}}</h5>
         </div>
         <div class="col-xs-6 col-md-6 col-lg-6">
-          <div class="pull-right">
+          <div class="pull-right no-printable">
             <a class="dropdown-toggle profile-image" data-toggle="dropdown">
               <img id="foto" src="{{urlFoto}}" class="img-circle">
             </a>

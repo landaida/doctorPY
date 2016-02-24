@@ -435,3 +435,25 @@ input::-webkit-inner-spin-button {
 .pagination > li {
   padding: 0px !important;
 }
+
+
+
+
+
+/*Config print content*/
+.printable {
+    display: none;
+}
+@media print {
+   .no-printable {
+       display: none;
+    }
+    .printable {
+       display: block;
+    }
+}
+
+@media print {
+  @page { margin: 0; }
+  body { margin: 1.6cm; }
+}

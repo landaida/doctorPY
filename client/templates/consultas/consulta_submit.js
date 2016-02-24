@@ -307,5 +307,8 @@ Template.consultaSubmit.events({
   "autocompleteselect input": function(event, template, doc) {
 
     console.log("selected ", doc, template);
-  }
+  },
+  'click #btnPrint': function(e, t) {
+    window.print &&  window.print();
+  },
 });
