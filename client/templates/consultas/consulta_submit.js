@@ -3,6 +3,7 @@ Template.consultaSubmit.onCreated(function() {
   Session.set('isSearchCIE10', false);
   Session.set('isOnlyOneDosis', false);
   Session.set('diagnosticos', null);
+  Session.set('recetas', [{medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''}]);
 });
 
 Template.consultaSubmit.helpers({
@@ -22,8 +23,9 @@ Template.consultaSubmit.helpers({
     return this._id != null;
   },
   recetas: function() {
-    var t = Template.instance();
-    return t.view.parentView.parentView._templateInstance.recetas.get();
+    // var t = Template.instance();
+    // return t.view.parentView.parentView._templateInstance.recetas.get();
+    return Session.get('recetas');
   },
   isSearchCIE10: function(group) {
     var retorno = '';
@@ -107,9 +109,13 @@ Template.consultaSubmit.events({
     Session.set('isSearchCIE10', false);
   },
   'click #btnAdd': function(e, t) {
-    var recetas = t.view.parentView.parentView._templateInstance.recetas.get();
-    recetas.push(t.view.parentView.parentView._templateInstance.model.get());
-    t.view.parentView.parentView._templateInstance.recetas.set(recetas)
+    // var recetas = t.view.parentView.parentView._templateInstance.recetas.get();
+    // recetas.push(t.view.parentView.parentView._templateInstance.model.get());
+    // t.view.parentView.parentView._templateInstance.recetas.set(recetas)
+    var t = Template.instance().view.template;
+    var recetas = t.__helpers.get('recetas').call();
+    recetas.push({medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''});
+    Session.set('recetas', recetas);
   },
   'submit form': function(e, template) {
     e.preventDefault();
@@ -140,7 +146,8 @@ Template.consultaSubmit.events({
     });
     consulta.cie10List = str;
 
-    var recetas = template.view.parentView.parentView._templateInstance.recetas.get(),
+    // var recetas = template.view.parentView.parentView._templateInstance.recetas.get(),
+    var recetas = Session.get('recetas'),
       msg = "Por favor complete: ",
       msgCuerpo = '';
 

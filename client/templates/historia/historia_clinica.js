@@ -21,30 +21,6 @@ Template.historiaClinica.helpers({
   currentConsulta: function(){
     return Session.get('currentConsulta');
   },
-  getDescription: function(type){
-    var t = Template.instance();
-    var lista = [], tipo = '';
-    switch(type) {
-    case 'DO':
-      lista = Session.get('tiposDosis');
-      tipo = this.dosisTipo;
-      break;
-    case 'FR':
-      lista = Session.get('tiposFrecuencia');
-      tipo = this.frecuenciaTipo;
-      break;
-    case 'DU':
-      lista = Session.get('tiposDuracion');
-      tipo = this.duracionTipo;
-      break;
-    }
-    var obj = lista.filter(function(item) {
-      if(item._id === tipo)
-        return item;
-    })[0];
-    if(obj)
-      return obj.descripcion;
-  },
   unicaDosis: function(){
     return this.unicaDosis == 'S';
   },
