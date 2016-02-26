@@ -77,6 +77,8 @@ var helpers = {
     return a === b;
   },
   getDescription: function(type){
+    if(this.unicaDosis && type != 'DO')
+      return '';
     var lista = [], tipo = '';
     switch(type) {
     case 'DO':

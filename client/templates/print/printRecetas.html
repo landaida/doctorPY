@@ -4,26 +4,9 @@
       {{#each recetas}}
       <div class="col-xs-12 col-md-12 col-lg-6">
         <div class="form-group">
-          <label class="control-label">Medicamento</label>
-          <span class="form-control">{{medicamento}}</span>
-        </div>
-      </div>
-      <div class="col-xs-6 col-md-6 col-lg-2">
-        <div class="form-group">
-          <label class="control-label">Dosis</label>
-          <span class="form-control">{{dosis}} {{getDescription 'DO'}}</span>
-        </div>
-      </div>
-      <div class="col-xs-6 col-md-6 col-lg-2" hidden="{{unicaDosis}}">
-        <div class="form-group">
-          <label class="control-label">Frecuencia</label>
-          <span class="form-control">{{frecuencia}} {{getDescription 'FR'}}</span>
-        </div>
-      </div>
-      <div class="col-xs-6 col-md-6 col-lg-2" hidden="{{unicaDosis}}">
-        <div class="form-group">
-          <label class="control-label">Duración</label>
-          <span class="form-control">{{duracion}} {{getDescription 'DU'}}</span>
+          <h3>
+            {{medicamento}} {{dosis}} {{getDescription 'DO'}} {{labelUnicaDosis}} {{texto 'cada'}} {{frecuencia}} {{getDescription 'FR'}} {{texto 'solo por'}} {{duracion}} {{getDescription 'DU'}}
+          </h3>
         </div>
       </div>
       {{/each}}

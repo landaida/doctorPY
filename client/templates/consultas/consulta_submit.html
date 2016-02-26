@@ -208,7 +208,7 @@
               <div class="form-group {{errorClass 'medicamento' @index}}">
                 <label class="control-label">Medicamento</label>
                 <div class="input-group">
-                  {{setIndex @index}} {{> inputAutocomplete settings=settings id=getMedicamentoId name=getMedicamentoId class="form-control" autocomplete="off"}}
+                  {{> inputAutocomplete settings=settings id=medicamentoId name=medicamentoId class="form-control" autocomplete="off"}}
                   <span class="input-group-addon">
                     <label><input id="unicaDosis{{@index}}" name="unicaDosis{{@index}}" type="checkbox" checked="{{unicaDosis}}" aria-label="..."> Única vez</label>
                   </span>
@@ -235,9 +235,9 @@
               <div class="form-group {{errorClass 'frecuencia' @index}}">
                 <label class="control-label">Frecuencia</label>
                 <div class="input-group">
-                  <input type="number" id="frecuencia{{@index}}" name="frecuencia{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis}}" />
+                  <input type="number" id="frecuencia{{@index}}" name="frecuencia{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis @index}}" />
                   <span class="input-group-addon">
-                    <select class="" id="frecuenciaTipo{{@index}}" name="frecuenciaTipo{{@index}}" style="border: none; background-color: transparent;" disabled="{{isOnlyOneDosis}}">
+                    <select class="" id="frecuenciaTipo{{@index}}" name="frecuenciaTipo{{@index}}" style="border: none; background-color: transparent;" disabled="{{isOnlyOneDosis @index}}">
                       {{#each tiposFrecuencia}}
                           <option value="{{_id}}" > {{descripcion}} </option>
                       {{/each}}
@@ -251,9 +251,9 @@
               <div class="form-group {{errorClass 'duracion' @index}}">
                 <label class="control-label">Duración</label>
                 <div class="input-group">
-                  <input type="number" id="duracion{{@index}}" name="duracion{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis}}" />
+                  <input type="number" id="duracion{{@index}}" name="duracion{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis @index}}" />
                   <span class="input-group-addon">
-                    <select class="" id="duracionTipo{{@index}}" name="duracionTipo{{@index}}" style="border: none; background-color: transparent;"  disabled="{{isOnlyOneDosis}}">
+                    <select class="" id="duracionTipo{{@index}}" name="duracionTipo{{@index}}" style="border: none; background-color: transparent;"  disabled="{{isOnlyOneDosis @index}}">
                       {{#each tiposDuracion}}
                           <option value="{{_id}}" > {{descripcion}} </option>
                       {{/each}}
