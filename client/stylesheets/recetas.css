@@ -1,0 +1,60 @@
+.header, .content, .footer { text-align: center; margin: 20px 0 0 0; }
+.footer h5 { text-transform: uppercase; font: 13px Helvetica, Sans-Serif; letter-spacing: 10px; border-bottom: 1px solid black; padding: 0 0 8px 0; margin: 0 0 8px 0; }
+.footer{
+  position: fixed;
+  bottom: 5em;
+  width: 100%;
+}
+
+.align-center div{
+  text-align: center;
+}
+
+.align-left{
+  text-align: left;
+  margin-left: 10em;
+  padding-bottom: 0.5em;
+}
+
+.doctor-name{
+  font-family: Palace Script MT;
+  font-size: -webkit-xxx-large;
+      margin-bottom: 0px;
+}
+.header{
+  border-bottom: 1px solid black;
+}
+
+.content{
+  font-size: 25px;
+  width: 100%;
+  height: auto;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+.left{
+  float:left;
+  margin: -11px 0px 0px 0px;
+}
+
+.firmaSello{
+  float: right;
+  margin: -11px 12em 0px 0px;
+}
+
+
+.recipe{
+  font-family: Palace Script MT;
+  float: left;
+  font-size: 3em;
+  margin-left: 1em;
+  margin-bottom: 1em;
+}
+
+
+body{
+  margin: 2em 2em 2em 2em;
+}
