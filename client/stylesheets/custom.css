@@ -457,3 +457,10 @@ input::-webkit-inner-spin-button {
   @page { margin: 0; }
   body { margin: 1.6cm; }
 }
+
+
+
+/*Para que el popup del login no desaparezca cuando no existe ninguna pagina a mostrar*/
+.container{
+  min-height: 500px;
+}
