@@ -41,7 +41,9 @@
       </div>
       <div id="consultar" class="tab-pane fade in active">
         {{#if currentUser}} {{> consultaSubmit}} {{else}}
-        <p>Por favor inicie sesión para realizar esta consulta.</p>
+        <div style="min-height: 500px;">
+          <p>Por favor inicie sesión para realizar esta consulta.</p>
+        </div>
         {{/if}}
       </div>
       <div id="datos" class="tab-pane fade">

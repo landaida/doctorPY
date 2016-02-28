@@ -1,4 +1,5 @@
 Template.pacienteSubmit.onCreated(function() {
+  FlashMessages.clear();
   Session.set('pacienteSubmitErrors', {});
   this.fotoFile=new ReactiveVar();
   this.edad=new ReactiveVar();
@@ -92,7 +93,7 @@ Template.pacienteSubmit.helpers({
   },
   hiddenIfInserting: function(){
     return !this._id ? 'hidden' : '';
-  },
+  }
 });
 Template.pacienteSubmit.events({
   'submit form': savePaciente,

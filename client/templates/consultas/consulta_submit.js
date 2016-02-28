@@ -1,8 +1,15 @@
 Template.consultaSubmit.onCreated(function() {
+  FlashMessages.clear();
   Session.set('consultaSubmitErrors', {});
   Session.set('isSearchCIE10', false);
   Session.set('diagnosticos', null);
   Session.set('recetas', [{medicamentoId: 'medicamento0', medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''}]);
+
+  Session.set('imc', 0);
+  Session.set('haycock', 0);
+  Session.set('boyd', 0);
+  Session.set('mosteller', 0);
+  Session.set('icc', 0);
 });
 
 Template.consultaSubmit.helpers({
@@ -123,10 +130,10 @@ Template.consultaSubmit.events({
       diagnostico: $(e.target).find('[name=diagnostico]').val(),
       tratamiento: $(e.target).find('[name=tratamiento]').val(),
       pacienteId: me._id,
-      peso:parseInt($(e.target).find('[name=peso]').val()),
-      altura:parseInt($(e.target).find('[name=altura]').val()),
-      perimetroCintura:parseInt($(e.target).find('[name=perimetroCintura]').val()),
-      perimetroCadera:parseInt($(e.target).find('[name=perimetroCadera]').val()),
+      peso:parseFloat(($(e.target).find('[name=peso]').val()).replace(',','.').replace(' ','')),
+      altura:parseFloat(($(e.target).find('[name=altura]').val()).replace(',','.').replace(' ','')),
+      perimetroCintura:parseFloat(($(e.target).find('[name=perimetroCintura]').val()).replace(',','.').replace(' ','')),
+      perimetroCadera:parseFloat(($(e.target).find('[name=perimetroCadera]').val()).replace(',','.').replace(' ','')),
     };
     var onlyRequired = _.omit(consulta,'peso', 'altura', 'perimetroCintura', 'perimetroCadera', 'pacienteId');
     var errors = validateCampos(onlyRequired);
@@ -147,7 +154,7 @@ Template.consultaSubmit.events({
 
     if (recetas.length > 0) {
       errors = {}, errors.length = 0;
-      var a_recetas = [];debugger
+      var a_recetas = [];
       recetas.forEach(function(item, i) {
         item.medicamento = $(e.target).find('[name=medicamento' + i + ']').val();
         item.unicaDosis = $(e.target).find('[name=unicaDosis' + i + ']').prop("checked");
@@ -157,7 +164,6 @@ Template.consultaSubmit.events({
         item.frecuenciaTipo = $(e.target).find('[name=frecuenciaTipo' + i + ']').val();
         item.duracion = $(e.target).find('[name=duracion' + i + ']').val();
         item.duracionTipo = $(e.target).find('[name=duracionTipo' + i + ']').val();
-
         if (!item.medicamento) {
           msgCuerpo += msgCuerpo.length == 0 ? 'Medicamento' : ' ,Medicamento';
         }
@@ -212,10 +218,12 @@ Template.consultaSubmit.events({
       Meteor.call('consultaInsert', consulta, function(error, consultaId) {
 
         if (error) {
+          FlashMessages.sendError(MENSAJE_SAVE_ERROR);
           throwError(error.reason);
         } else {
 
         }
+        FlashMessages.sendSuccess(MENSAJE_SAVE_SUCCESS);
         Router.go('pacienteList');
       });
 

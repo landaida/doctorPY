@@ -6,7 +6,7 @@
           {{#each consultas}}
             <li class="listaConsultas"><a href="#">{{@index}}</a></li>
           {{/each}}
-          <li class="listaConsultasNext {{isMore}}"><a href="#" aria-label="Siguiente"><span aria-hidden="true">»</span></a></li>
+          <li class="listaConsultasNext {{isMore}}" {{isMore}}><a href="#" aria-label="Siguiente"><span aria-hidden="true">»</span></a></li>
         </ul>
       </nav>
       <div class="panel panel-info">
@@ -24,6 +24,96 @@
             </div>
             <div class="panel-body">
               <span class="help-block">{{currentConsulta.motivo}}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                Calculos
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-4 col-xs-12">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <label class="control-label" for="nombre">Peso</label>
+                      <div class="controls">
+                        <input type="number" name="peso" id="peso" value="{{currentConsulta.peso}}" class="form-control" step="any" />
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <label class="control-label" for="nombre">Altura</label>
+                      <div class="controls">
+                        <input type="number" name="altura" id="altura" value="{{currentConsulta.altura}}" class="form-control" step="any" />
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <label class="control-label" for="nombre">IMC</label>
+                      <div class="controls">
+                        <input type="number" name="imc" id="imc" value="{{currentConsulta.imc}}" disabled class="form-control"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    Superficie corporal(m2)
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-4 col-xs-12">
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                          <label class="control-label" for="nombre">Monsteller</label>
+                          <div class="controls">
+                            <input type="number" name="mosteller" id="monsteller" value="{{currentConsulta.mosteller}}" disabled class="form-control"/>
+                          </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                          <label class="control-label" for="nombre">Boyd</label>
+                          <div class="controls">
+                            <input type="number" name="boyd" id="boyd" value="{{currentConsulta.boyd}}" disabled class="form-control"/>
+                          </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                          <label class="control-label" for="nombre">Haycock</label>
+                          <div class="controls">
+                            <input type="number" name="haycock" id="haycock" value="{{currentConsulta.haycock}}" disabled class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    Índice cintura / cadera - ICC
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-4 col-xs-12">
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                          <label class="control-label" for="nombre">Perímetro cintura</label>
+                          <div class="controls">
+                            <input type="number" name="perimetroCintura" id="perimetroCintura" value="{{currentConsulta.perimetroCintura}}" class="form-control"/>
+                          </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                          <label class="control-label" for="nombre">Perimetro cadera</label>
+                          <div class="controls">
+                            <input type="number" name="perimetroCadera" id="perimetroCadera" value="{{currentConsulta.perimetroCadera}}" class="form-control"/>
+                          </div>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                          <label class="control-label" for="nombre">ICC</label>
+                          <div class="controls">
+                            <input type="number" name="icc" id="icc" value="{{currentConsulta.icc}}" disabled class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -61,19 +151,19 @@
                 <div class="col-xs-6 col-md-6 col-lg-2">
                   <div class="form-group">
                     <label class="control-label">Dosis</label>
-                    <span class="form-control">{{dosis}} {{getDescription 'DO'}}</span>
+                    <span class="form-control">{{dosis}} {{dosisDescripcion}}</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-md-6 col-lg-2" hidden="{{unicaDosis}}">
                   <div class="form-group">
                     <label class="control-label">Frecuencia</label>
-                    <span class="form-control">{{frecuencia}} {{getDescription 'FR'}}</span>
+                    <span class="form-control">{{frecuencia}} {{frecuenciaDescripcion}}</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-md-6 col-lg-2" hidden="{{unicaDosis}}">
                   <div class="form-group">
                     <label class="control-label">Duración</label>
-                    <span class="form-control">{{duracion}} {{getDescription 'DU'}}</span>
+                    <span class="form-control">{{duracion}} {{duracionDescripcion}}</span>
                   </div>
                 </div>
                 {{/each}}

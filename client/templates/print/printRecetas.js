@@ -15,5 +15,9 @@ Template.printRecetasTemplate.helpers({
   'texto': function(texto){
     if(!this.unicaDosis)
       return texto;
+  },
+  'user': function(){
+    return Meteor.user().profile;
   }
+
 })

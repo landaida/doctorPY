@@ -1,5 +1,8 @@
 Template.historiaClinica.onCreated(function() {
-  Session.set('isMore', true);
+  Session.set('imc-h', 0);
+  Session.set('mosteller-h', 0);
+  Session.set('boyd-h', 0);
+  Session.set('haycock-h', 0);
 });
 
 Template.historiaClinica.onRendered(function(){
@@ -25,22 +28,41 @@ Template.historiaClinica.helpers({
     return this.unicaDosis == 'S';
   },
   isMore: function(){
-    return Session.get('isMore') == true ? '' : 'disabled';
-  },
-  imc: function(){
-    var currentConsulta = Session.get('currentConsulta'), retorno = 0;
-    if(currentConsulta){
-      retorno = imc(currentConsulta.peso, currentConsulta.altura);
-    }
-    return retorno;
+    return Session.get('isMore');
   }
 })
 
 Template.historiaClinica.events({
   'click .listaConsultas': function (e) {
     e.preventDefault();
+
+    this.imc = imc(this.peso, this.altura, true);
+    this.haycock = Session.get('haycock-h');
+    this.boyd = Session.get('boyd-h');
+    this.mosteller = Session.get('mosteller-h');
+    this.icc = Math.round((this.perimetroCintura / this.perimetroCadera) * 100)/100;
+
+    this.recetas.forEach(function(receta){
+      var lista = Session.get('tiposDosis');
+      lista.filter(function(item) {
+        if(item._id === receta.dosisTipo)
+          receta.dosisDescripcion = item.descripcion;
+      });
+
+      lista = Session.get('tiposFrecuencia');
+      lista.filter(function(item) {
+        if(item._id === receta.frecuenciaTipo)
+          receta.frecuenciaDescripcion = item.descripcion;
+      });
+
+      lista = Session.get('tiposDuracion');
+      lista.filter(function(item) {
+        if(item._id === receta.duracionTipo)
+          receta.duracionDescripcion = item.descripcion;
+      });
+    })
+
     Session.set('currentConsulta', this);
-    console.log(this);
   },
   'click .listaConsultasNext': function (e) {
     e.preventDefault();
@@ -54,7 +76,9 @@ Template.historiaClinica.events({
       Session.set('consultas', consultas);
       var first_id = Consultas.findOne({},{sort:{id:1}}).id;
       if(first_id == last)
-        Session.set('isMore', false);
+        Session.set('isMore', 'disabled');
+    }else{
+      Session.set('isMore', 'disabled');
     }
   }
 })
