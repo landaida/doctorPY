@@ -1,10 +1,13 @@
 <template name="consultaSubmit">
-  <form name="consulta" class="consulta-form form">
+  <form name="consulta" class="consulta-form form no-printable">
     {{> buttonsSave}}
+    <div class="container">
+      {{> flashMessages}}
+    </div>
     <hr>
     <div class="form-group {{errorClass 'motivo'}}">
       <div class="controls">
-        <label for="motivo">Motivo de la consulta</label>
+        <label for="motivo" class="required-label">Motivo de la consulta</label>
         <textarea name="motivo" id="motivo" class="form-control" rows="3" required="true"></textarea>
         <span class="help-block">{{errorMessage 'motivo'}}</span>
       </div>
@@ -66,6 +69,35 @@
               </div>
             </div>
           </div>
+          <!-- <div class="panel panel-info">
+            <div class="panel-heading">
+              Quemaduras
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-4 col-xs-12">
+                  <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="control-label" for="nombre">Monsteller</label>
+                    <div class="controls">
+                      <input type="number" name="mosteller" id="monsteller" value="{{mosteller}}" disabled class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="control-label" for="nombre">Boyd</label>
+                    <div class="controls">
+                      <input type="number" name="boyd" id="boyd" value="{{boyd}}" disabled class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="control-label" for="nombre">Haycock</label>
+                    <div class="controls">
+                      <input type="number" name="haycock" id="haycock" value="{{haycock}}" disabled class="form-control"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
           <div class="panel panel-info">
             <div class="panel-heading">
               Índice cintura / cadera - ICC
@@ -104,7 +136,7 @@
           <div class="panel-heading clearfix">
             <div class="row">
               <div class="{{isSearchCIE10 0}} col-xs-6 col-md-6 col-lg-6">
-                <label class="control-label" for="diagnostico">Diagnóstico</label>
+                <label class="control-label required-label" for="diagnostico">Diagnóstico</label>
               </div>
               <div class="{{isSearchCIE10 0}} col-xs-6 col-md-6 col-lg-6">
                 <button type="button" name="btnCie10" id="btnCie10" class="btn btn-info btn-xs pull-right">
@@ -151,7 +183,7 @@
     </div>
     <div class="form-group {{errorClass 'tratamiento'}}">
       <div class="controls">
-        <label for="tratamientos">Tratamiento</label>
+        <label for="tratamientos" class="required-label">Tratamiento</label>
         <textarea name="tratamiento" id="tratamiento" class="form-control" rows="3" required="true"></textarea>
         <span class="help-block">{{errorMessage 'tratamiento'}}</span>
       </div>
@@ -159,14 +191,18 @@
 
     <div class="panel panel-info">
       <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Receta</h3>
+        <h3 class="panel-title pull-left required-label">Receta</h3>
         <div class="btn-group pull-right">
           <a id="btnAdd" class="btn btn-info btn-xs">
             <img src="/img/ic_add_white_18px.svg" />
           </a>
+          <a id="btnPrint" class="btn btn-info btn-xs">
+            <img src="/img/ic_print_white_18px.svg" />
+          </a>
         </div>
       </div>
       <div class="panel-body">
+
         <!-- <div style="overflow-y: auto; overflow-x: hidden; height:220px;"> -->
         <div class="row">
           <div class="form-group">
@@ -175,7 +211,7 @@
               <div class="form-group {{errorClass 'medicamento' @index}}">
                 <label class="control-label">Medicamento</label>
                 <div class="input-group">
-                  {{setIndex @index}} {{> inputAutocomplete settings=settings id=getMedicamentoId name=getMedicamentoId class="form-control" autocomplete="off"}}
+                  {{> inputAutocomplete settings=settings id=medicamentoId name=medicamentoId class="form-control" autocomplete="off"}}
                   <span class="input-group-addon">
                     <label><input id="unicaDosis{{@index}}" name="unicaDosis{{@index}}" type="checkbox" checked="{{unicaDosis}}" aria-label="..."> Única vez</label>
                   </span>
@@ -202,9 +238,9 @@
               <div class="form-group {{errorClass 'frecuencia' @index}}">
                 <label class="control-label">Frecuencia</label>
                 <div class="input-group">
-                  <input type="number" id="frecuencia{{@index}}" name="frecuencia{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis}}" />
+                  <input type="number" id="frecuencia{{@index}}" name="frecuencia{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis @index}}" />
                   <span class="input-group-addon">
-                    <select class="" id="frecuenciaTipo{{@index}}" name="frecuenciaTipo{{@index}}" style="border: none; background-color: transparent;" disabled="{{isOnlyOneDosis}}">
+                    <select class="" id="frecuenciaTipo{{@index}}" name="frecuenciaTipo{{@index}}" style="border: none; background-color: transparent;" disabled="{{isOnlyOneDosis @index}}">
                       {{#each tiposFrecuencia}}
                           <option value="{{_id}}" > {{descripcion}} </option>
                       {{/each}}
@@ -218,9 +254,9 @@
               <div class="form-group {{errorClass 'duracion' @index}}">
                 <label class="control-label">Duración</label>
                 <div class="input-group">
-                  <input type="number" id="duracion{{@index}}" name="duracion{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis}}" />
+                  <input type="number" id="duracion{{@index}}" name="duracion{{@index}}" placeholder="" class="form-control" required="true" disabled="{{isOnlyOneDosis @index}}" />
                   <span class="input-group-addon">
-                    <select class="" id="duracionTipo{{@index}}" name="duracionTipo{{@index}}" style="border: none; background-color: transparent;"  disabled="{{isOnlyOneDosis}}">
+                    <select class="" id="duracionTipo{{@index}}" name="duracionTipo{{@index}}" style="border: none; background-color: transparent;"  disabled="{{isOnlyOneDosis @index}}">
                       {{#each tiposDuracion}}
                           <option value="{{_id}}" > {{descripcion}} </option>
                       {{/each}}
@@ -263,6 +299,7 @@
     </div>
 
   </form>
+  {{> printRecetasTemplate}}
 </template>
 
 <template name="autocompleteMedicamentos">

@@ -76,6 +76,31 @@ var helpers = {
     console.log(a, b, a === b)
     return a === b;
   },
+  getDescription: function(type){
+    if(this.unicaDosis && type != 'DO')
+      return '';
+    var lista = [], tipo = '';
+    switch(type) {
+    case 'DO':
+      lista = Session.get('tiposDosis');
+      tipo = this.dosisTipo;
+      break;
+    case 'FR':
+      lista = Session.get('tiposFrecuencia');
+      tipo = this.frecuenciaTipo;
+      break;
+    case 'DU':
+      lista = Session.get('tiposDuracion');
+      tipo = this.duracionTipo;
+      break;
+    }
+    var obj = lista.filter(function(item) {
+      if(item._id === tipo)
+        return item;
+    })[0];
+    if(obj)
+      return obj.descripcion;
+  }
 };
 
 _.each(helpers, function(value, key){

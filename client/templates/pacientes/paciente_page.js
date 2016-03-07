@@ -1,14 +1,14 @@
 Template.pacientePage.onCreated(function () {
   this.fotoFile=new ReactiveVar();
   Session.set('editing', true);
-  this.recetas=new ReactiveVar();
-  this.model = new ReactiveVar();
-  this.model.set({medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''});
-  this.recetas.set([]);
+  // this.recetas=new ReactiveVar();
+  // this.model = new ReactiveVar();
+  // this.model.set({medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''});
+  // this.recetas.set([]);
 
-  var recetas = this.recetas.get();
-  recetas.push(this.model.get());
-  this.recetas.set(recetas)
+  // var recetas = this.recetas.get();
+  // recetas.push(this.model.get());
+  // this.recetas.set(recetas)
 });
 Template.pacientePage.onRendered(function () {
   var me = this;

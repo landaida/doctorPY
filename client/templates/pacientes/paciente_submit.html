@@ -18,28 +18,28 @@
         </div>
       </div>
     </div>
+    <div class="container">
+      {{> flashMessages}}
+    </div>
     <hr>
     <div class="row">
-
-      <!-- {{#unless isDesktop}} {{> accountPhoto urlFoto=urlFoto}} {{/unless}} -->
-
       <div class="col-xs-12 col-md-12 col-lg-6">
         <div class="form-group {{errorClass 'dni'}}">
-          <label class="control-label" for="dni">DNI</label>
+          <label class="control-label required-label" for="dni">DNI</label>
           <div class="controls">
             <input name="dni" id="dni" type="number" required="true" value="{{dni}}" placeholder="Documento Nacional de Identidad" class="form-control" />
             <span class="help-block">{{errorMessage 'dni'}}</span>
           </div>
         </div>
         <div class="form-group {{errorClass 'nombre'}}">
-          <label class="control-label" for="nombre">Nombre</label>
+          <label class="control-label required-label" for="nombre">Nombre</label>
           <div class="controls">
             <input name="nombre" id="nombre" type="text" required="true" value="{{nombre}}" placeholder="Nombre del paciente" class="form-control" />
             <span class="help-block">{{errorMessage 'nombre'}}</span>
           </div>
         </div>
         <div class="form-group  {{errorClass 'grupoSanguineo'}}">
-          <label class="control-label" for="grupoSanguineo">Grupo Sanguineo</label>
+          <label class="control-label required-label" for="grupoSanguineo">Grupo Sanguineo</label>
           <div class="controls">
             <select class="form-control" id="grupoSanguineo" name="grupoSanguineo" required="true">
               <option value="N" {{selectedGrupoSanguineo 'N'}}> Ninguno </option>
@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="form-group {{errorClass 'fechaNacimiento'}}">
-          <label class="control-label" for="fechaNacimiento">Fecha de nacimiento</label>
+          <label class="control-label required-label" for="fechaNacimiento">Fecha de nacimiento</label>
           <div class="controls">
             <div class="input-group">
               <input name="fechaNacimiento" id="fechaNacimiento" type="date" required="true" value="{{fechaNacimiento}}" max="{{maxDate}}" class="form-control" />
@@ -74,7 +74,7 @@
         <!-- <div class="row"> -->
         <!-- <div class="col-xs-12 col-md-12 col-lg-6"> -->
         <div class="form-group {{errorClass 'domicilio'}}">
-          <label class="control-label" for="domicilio">Domicilio</label>
+          <label class="control-label required-label" for="domicilio">Domicilio</label>
           <div class="controls">
             <input name="domicilio" id="domicilio" type="text" required="true" value="{{domicilio}}" class="form-control" />
             <span class="help-block">{{errorMessage 'domicilio'}}</span>
@@ -121,7 +121,7 @@
       </div>
       <div class="col-xs-12 col-md-12 col-lg-6">
         <div class="form-group {{errorClass 'telefono1'}}">
-          <label class="control-label">Telefono</label>
+          <label class="control-label required-label">Telefono</label>
           <div class="controls">
             <div class="input-group" id="telefonos">
               <input name="telefono1" id="telefono1" type="number" required="true" value="{{telefono1}}" class="form-control" />

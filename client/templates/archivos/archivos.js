@@ -1,5 +1,4 @@
 Template.archivos.onCreated(function() {
-  Session.set('isMoreArchivo', true);
   Session.set('foto', '');
 });
 
@@ -23,7 +22,7 @@ Template.archivos.helpers({
     return Session.get('current');
   },
   isMore: function(){
-    return Session.get('isMoreArchivo') == true ? '' : 'disabled';
+    return Session.get('isMoreArchivo');
   },
   foto: function(){
     return Session.get('foto');
@@ -54,7 +53,9 @@ Template.archivos.events({
       Session.set('archivos', lista);
       var first_id = Archivos.findOne({"metadata.pacienteId": this._id},{sort:{"metadata.id":1}}).id;
       if(first_id == last)
-        Session.set('isMoreArchivo', false);
+        Session.set('isMoreArchivo', 'disabled');
+    }else{
+      Session.set('isMoreArchivo', 'disabled');
     }
   },
   'click #btnNew': function(e){
@@ -111,5 +112,6 @@ hiddenCrop = function(img){
   $('#archivo').cropper('replace', img)
   setTimeout(function(){
     $('#archivo').cropper('clear')
-  },50);
+    console.log('clear');
+  },500);
 }

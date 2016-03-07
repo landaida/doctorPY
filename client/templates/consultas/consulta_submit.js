@@ -1,8 +1,15 @@
 Template.consultaSubmit.onCreated(function() {
+  FlashMessages.clear();
   Session.set('consultaSubmitErrors', {});
   Session.set('isSearchCIE10', false);
-  Session.set('isOnlyOneDosis', false);
   Session.set('diagnosticos', null);
+  Session.set('recetas', [{medicamentoId: 'medicamento0', medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''}]);
+
+  Session.set('imc', 0);
+  Session.set('haycock', 0);
+  Session.set('boyd', 0);
+  Session.set('mosteller', 0);
+  Session.set('icc', 0);
 });
 
 Template.consultaSubmit.helpers({
@@ -22,8 +29,9 @@ Template.consultaSubmit.helpers({
     return this._id != null;
   },
   recetas: function() {
-    var t = Template.instance();
-    return t.view.parentView.parentView._templateInstance.recetas.get();
+    // var t = Template.instance();
+    // return t.view.parentView.parentView._templateInstance.recetas.get();
+    return Session.get('recetas');
   },
   isSearchCIE10: function(group) {
     var retorno = '';
@@ -49,8 +57,9 @@ Template.consultaSubmit.helpers({
 
     return index % 2 == 0 ? 'line-par' : '';
   },
-  isOnlyOneDosis: function() {
-    return Session.get('isOnlyOneDosis');
+  isOnlyOneDosis: function(index) {
+    var isOnlyOneDosis = Session.get('isOnlyOneDosis'+index);
+    return isOnlyOneDosis || false;
   },
   tiposFrecuencia: function() {
     //var t = Template.instance();
@@ -75,12 +84,6 @@ Template.consultaSubmit.helpers({
         template: Template.autocompleteMedicamentos
       }]
     };
-  },
-  getMedicamentoId: function() {
-    return 'medicamento'+Session.get('index');
-  },
-  setIndex: function(index){
-    Session.set('index', index);
   },
   imc: function(){
     return Session.get('imc');
@@ -107,9 +110,13 @@ Template.consultaSubmit.events({
     Session.set('isSearchCIE10', false);
   },
   'click #btnAdd': function(e, t) {
-    var recetas = t.view.parentView.parentView._templateInstance.recetas.get();
-    recetas.push(t.view.parentView.parentView._templateInstance.model.get());
-    t.view.parentView.parentView._templateInstance.recetas.set(recetas)
+    // var recetas = t.view.parentView.parentView._templateInstance.recetas.get();
+    // recetas.push(t.view.parentView.parentView._templateInstance.model.get());
+    // t.view.parentView.parentView._templateInstance.recetas.set(recetas)
+    var t = Template.instance().view.template;
+    var recetas = t.__helpers.get('recetas').call();
+    recetas.push({medicamentoId: 'medicamento'+recetas.length, medicamento:'', unicaDosis: false, dosis:'', dosisTipo: '', frecuencia:'', frecuenciaTipo:'', duracion:'', duracionTipo:''});
+    Session.set('recetas', recetas);
   },
   'submit form': function(e, template) {
     e.preventDefault();
@@ -123,14 +130,25 @@ Template.consultaSubmit.events({
       diagnostico: $(e.target).find('[name=diagnostico]').val(),
       tratamiento: $(e.target).find('[name=tratamiento]').val(),
       pacienteId: me._id,
-      peso:parseInt($(e.target).find('[name=peso]').val()),
-      altura:parseInt($(e.target).find('[name=altura]').val())
+      peso:parseFloat(($(e.target).find('[name=peso]').val()).replace(',','.').replace(' ','')),
+      altura:parseFloat(($(e.target).find('[name=altura]').val()).replace(',','.').replace(' ','')),
+      perimetroCintura:parseFloat(($(e.target).find('[name=perimetroCintura]').val()).replace(',','.').replace(' ','')),
+      perimetroCadera:parseFloat(($(e.target).find('[name=perimetroCadera]').val()).replace(',','.').replace(' ','')),
     };
-
-    var errors = validateCampos(consulta);
+    var onlyRequired = _.omit(consulta,'peso', 'altura', 'perimetroCintura', 'perimetroCadera', 'pacienteId');
+    var errors = validateCampos(onlyRequired);
     if (errors.length > 0)
       return Session.set('consultaSubmitErrors', errors);
-    var recetas = template.view.parentView.parentView._templateInstance.recetas.get(),
+
+    //Agrega los cie10 seleccionados
+    var lista = Session.get('diagnosticos'), str = '';
+    lista.forEach(function(cie10) {
+      str += str.length > 0 ? ', ' + cie10.id10 : cie10.id10;
+    });
+    consulta.cie10List = str;
+
+    // var recetas = template.view.parentView.parentView._templateInstance.recetas.get(),
+    var recetas = Session.get('recetas'),
       msg = "Por favor complete: ",
       msgCuerpo = '';
 
@@ -146,7 +164,6 @@ Template.consultaSubmit.events({
         item.frecuenciaTipo = $(e.target).find('[name=frecuenciaTipo' + i + ']').val();
         item.duracion = $(e.target).find('[name=duracion' + i + ']').val();
         item.duracionTipo = $(e.target).find('[name=duracionTipo' + i + ']').val();
-
         if (!item.medicamento) {
           msgCuerpo += msgCuerpo.length == 0 ? 'Medicamento' : ' ,Medicamento';
         }
@@ -201,10 +218,12 @@ Template.consultaSubmit.events({
       Meteor.call('consultaInsert', consulta, function(error, consultaId) {
 
         if (error) {
+          FlashMessages.sendError(MENSAJE_SAVE_ERROR);
           throwError(error.reason);
         } else {
 
         }
+        FlashMessages.sendSuccess(MENSAJE_SAVE_SUCCESS);
         Router.go('pacienteList');
       });
 
@@ -245,7 +264,7 @@ Template.consultaSubmit.events({
     })
   },
   'change input[type=checkbox]': function(e) {
-    Session.set('isOnlyOneDosis', e.target.checked);
+    Session.set('isOnlyOneDosis'+e.target.id.substr(-1), e.target.checked);
   },
   'change select': function(e) {
     Session.set('element', e.target.id);
@@ -294,4 +313,25 @@ Template.consultaSubmit.events({
     var perimetroCintura = $('#perimetroCintura').val();
     Session.set('icc', Math.round((perimetroCintura / e.target.value) * 100)/100)
   }, 200),
+  "autocompleteselect input": function(event, template, doc) {
+    //console.log("selected ", doc, template);
+  },
+  'click #btnPrint': function(e, t) {
+    var t = Template.instance().view.template;
+    var recetas = t.__helpers.get('recetas').call();
+    recetas.forEach(function(item, i) {
+      item.medicamento = $('#medicamento' + i).val();
+      item.unicaDosis = $('#unicaDosis' + i).prop("checked");
+      item.dosis = $('#dosis' + i).val();
+      item.dosisTipo = $('#dosisTipo' + i).val();
+      item.frecuencia = $('#frecuencia' + i).val();
+      item.frecuenciaTipo = $('#frecuenciaTipo' + i).val();
+      item.duracion = $('#duracion' + i).val();
+      item.duracionTipo = $('#duracionTipo' + i).val();
+    })
+    Session.set('recetas', recetas);
+    setTimeout(function(){
+      window.print &&  window.print();
+    },50);
+  },
 });

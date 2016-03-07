@@ -1,0 +1,34 @@
+<template name="printRecetasTemplate">
+
+  <div class="printable body">
+    <div class="header">
+      <h3 class="doctor-name">{{user.nombre}}</h3>
+      <div class="align-center">{{user.rol}}</div>
+      <div class="align-center">Reg. Prof. N° {{user.registro}}</div>
+    </div>
+    <div class="content">
+      <span class="recipe">Rp)</span>
+      <div class="row">
+        {{#each recetas}}
+        <div class="col-xs-12 col-md-12 col-lg-12 align-left">
+            {{medicamento}} {{dosis}} {{getDescription 'DO'}} {{labelUnicaDosis}} {{texto 'cada'}} {{frecuencia}} {{getDescription 'FR'}} {{texto 'solo por'}} {{duracion}} {{getDescription 'DU'}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="footer">
+      <span class="left">Fecha:</span>
+      <span class="firmaSello">Firma y sello</span>
+      <h5></h5>
+      <div class="aling-center uppercase">
+          Hospital Regional Pte. Franco
+      </div>
+      <div class="aling-center">
+        Calle 12 de Junio con Avda. Bernardino Caballero
+      </div>
+      <div class="aling-center">
+        Ciudad del Este - Alto Paraná
+      </div>
+    </div>
+  </div>
+</template>
